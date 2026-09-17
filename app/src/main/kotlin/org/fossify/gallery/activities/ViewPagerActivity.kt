@@ -295,7 +295,9 @@ class ViewPagerActivity : BaseViewerActivity(), ViewPager.OnPageChangeListener, 
                 findItem(R.id.menu_share).isVisible = visibleBottomActions and BOTTOM_ACTION_SHARE == 0
                 findItem(R.id.menu_edit).isVisible = visibleBottomActions and BOTTOM_ACTION_EDIT == 0 && !currentMedium.isSVG()
                 findItem(R.id.menu_rename).isVisible = visibleBottomActions and BOTTOM_ACTION_RENAME == 0 && !currentMedium.getIsInRecycleBin()
-                findItem(R.id.menu_rotate).isVisible = currentMedium.isImage() && visibleBottomActions and BOTTOM_ACTION_ROTATE == 0
+                val showRotateItems = currentMedium.isImage() && visibleBottomActions and BOTTOM_ACTION_ROTATE == 0
+                findItem(R.id.menu_rotate_right).isVisible = showRotateItems
+                findItem(R.id.menu_rotate_left).isVisible = showRotateItems
                 findItem(R.id.menu_set_as).isVisible = visibleBottomActions and BOTTOM_ACTION_SET_AS == 0
                 findItem(R.id.menu_copy_to_clipboard).isVisible = currentMedium.isImage()
                 findItem(R.id.menu_copy_to).isVisible = visibleBottomActions and BOTTOM_ACTION_COPY == 0
@@ -318,13 +320,6 @@ class ViewPagerActivity : BaseViewerActivity(), ViewPager.OnPageChangeListener, 
                 findItem(R.id.menu_restore_file).isVisible = currentMedium.path.startsWith(recycleBinPath)
                 findItem(R.id.menu_create_shortcut).isVisible = true
                 findItem(R.id.menu_change_orientation).isVisible = rotationDegrees == 0 && visibleBottomActions and BOTTOM_ACTION_CHANGE_ORIENTATION == 0
-                findItem(R.id.menu_rotate).setShowAsAction(
-                    if (rotationDegrees != 0) {
-                        MenuItem.SHOW_AS_ACTION_ALWAYS
-                    } else {
-                        MenuItem.SHOW_AS_ACTION_IF_ROOM
-                    }
-                )
             }
 
             if (visibleBottomActions != 0) {
@@ -363,7 +358,6 @@ class ViewPagerActivity : BaseViewerActivity(), ViewPager.OnPageChangeListener, 
                 R.id.menu_show_on_map -> showFileOnMap(getCurrentPath())
                 R.id.menu_rotate_right -> rotateImage(90)
                 R.id.menu_rotate_left -> rotateImage(-90)
-                R.id.menu_rotate_one_eighty -> rotateImage(180)
                 R.id.menu_add_to_favorites -> toggleFavorite()
                 R.id.menu_remove_from_favorites -> toggleFavorite()
                 R.id.menu_restore_file -> restoreFile()
@@ -518,12 +512,12 @@ class ViewPagerActivity : BaseViewerActivity(), ViewPager.OnPageChangeListener, 
             binding.viewPager.background = Color.BLACK.toDrawable()
         }
 
-        if (config.hideSystemUI) {
-            binding.viewPager.onGlobalLayout {
-                Handler().postDelayed({
+        binding.viewPager.onGlobalLayout {
+            Handler().postDelayed({
+                if (!mIsFullScreen) {
                     fragmentClicked()
-                }, HIDE_SYSTEM_UI_DELAY)
-            }
+                }
+            }, HIDE_SYSTEM_UI_DELAY)
         }
 
         if (

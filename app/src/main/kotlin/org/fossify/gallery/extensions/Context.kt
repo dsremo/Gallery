@@ -493,6 +493,21 @@ fun Context.getNoMediaFolders(callback: (folders: ArrayList<String>) -> Unit) {
     }
 }
 
+private val dsremoSystemHiddenFolderRegex = Regex(
+    "^(\\.thumbnails|\\.trashed-\\d+.*|\\.pending-\\d+.*|\\.face|\\.android_secure|\\.subshare|\\.stfolder|\\.stversions)$"
+)
+
+fun isDsremoSystemHiddenFolderName(name: String): Boolean {
+    return dsremoSystemHiddenFolderRegex.matches(name)
+}
+
+fun isDsremoSystemHiddenFolderPath(path: String): Boolean {
+    val folderName = path.substringAfterLast('/', "")
+    if (folderName.isEmpty()) return false
+    if (isDsremoSystemHiddenFolderName(folderName)) return true
+    return path.split('/').any { segment -> isDsremoSystemHiddenFolderName(segment) }
+}
+
 fun Context.getNoMediaFoldersSync(): ArrayList<String> {
     val folders = ArrayList<String>()
 
@@ -1252,7 +1267,12 @@ fun Context.createDirectoryFromMedia(
 
     if (thumbnail == null) {
         val sortedMedia = grouped.filter { it is Medium }.toMutableList() as ArrayList<Medium>
-        thumbnail = sortedMedia.firstOrNull { getDoesFilePathExist(it.path, OTGPath) }?.path ?: ""
+        val existingMedia = sortedMedia.filter { getDoesFilePathExist(it.path, OTGPath) }
+        val cameraTakenCandidate = existingMedia.firstOrNull { medium ->
+            val loweredPath = medium.path.lowercase()
+            loweredPath.contains("/dcim/") || loweredPath.contains("/camera/") || loweredPath.contains("/dcim/camera")
+        }
+        thumbnail = cameraTakenCandidate?.path ?: existingMedia.firstOrNull()?.path ?: ""
     }
 
     if (config.OTGPath.isNotEmpty() && thumbnail!!.startsWith(config.OTGPath)) {

@@ -79,6 +79,9 @@ import org.fossify.commons.views.MyRecyclerView
 import org.fossify.gallery.BuildConfig
 import org.fossify.gallery.R
 import org.fossify.gallery.adapters.DirectoryAdapter
+import org.fossify.gallery.dsremo.SmartAlbums
+import org.fossify.gallery.helpers.DSREMO_EXTRA_DATE_RANGE_FROM
+import org.fossify.gallery.helpers.DSREMO_EXTRA_DATE_RANGE_TO
 import org.fossify.gallery.databases.GalleryDatabase
 import org.fossify.gallery.databinding.ActivityMainBinding
 import org.fossify.gallery.dialogs.ChangeSortingDialog
@@ -189,6 +192,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     private var mLastMediaFetcher: MediaFetcher? = null
     private var mDirs = ArrayList<Directory>()
     private var mDirsIgnoringSearch = ArrayList<Directory>()
+    private var mDsremoSmartAlbums = ArrayList<Directory>()
 
     private var mStoredAnimateGifs = true
     private var mStoredCropThumbnails = true
@@ -202,6 +206,11 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         appLaunched(BuildConfig.APPLICATION_ID)
+        org.fossify.gallery.dsremo.TrashAutoCleanup.maybeRun(applicationContext)
+
+        if (intent.getBooleanExtra("dsremo_skip_default_folder", false)) {
+            mWasDefaultFolderChecked = true
+        }
 
         if (savedInstanceState == null) {
             config.temporarilyShowHidden = false
@@ -280,7 +289,34 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
                 mWasMediaManagementPromptShown = true
                 handleMediaManagementPrompt { }
             }
+            promptAllFilesAccessIfMissing()
         }
+    }
+
+    private fun promptAllFilesAccessIfMissing() {
+        if (!isRPlus()) return
+        if (android.os.Environment.isExternalStorageManager()) return
+        if (config.dsremoAllFilesPromptShown) return
+        config.dsremoAllFilesPromptShown = true
+        val allFilesRationale = getString(R.string.dsremo_all_files_access_rationale)
+        val settingsAction = getString(org.fossify.commons.R.string.settings)
+        val notNowAction = getString(org.fossify.commons.R.string.later)
+        val dialogBuilder = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.dsremo_all_files_access_title)
+            .setMessage(allFilesRationale)
+            .setPositiveButton(settingsAction) { _, _ ->
+                val allFilesSettingsIntent = Intent(
+                    android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                try {
+                    startActivity(allFilesSettingsIntent)
+                } catch (_: android.content.ActivityNotFoundException) {
+                    startActivity(Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION))
+                }
+            }
+            .setNegativeButton(notNowAction, null)
+        dialogBuilder.show()
     }
 
     override fun onStart() {
@@ -493,15 +529,27 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             binding.directoriesSwitchSearching.beVisibleIf(text.isNotEmpty())
         }
 
+        try {
+            val dsremoSearchLeadingIcon = binding.mainMenu.findViewById<android.view.View>(
+                org.fossify.commons.R.id.top_toolbar_search_icon
+            )
+            dsremoSearchLeadingIcon?.visibility = android.view.View.GONE
+        } catch (_: Exception) {
+        }
+
         binding.mainMenu.requireToolbar().setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.sort -> showSortingDialog()
                 R.id.filter -> showFilterMediaDialog()
                 R.id.open_camera -> launchCamera()
                 R.id.show_all -> showAllMedia()
+                R.id.dsremo_search -> launchSearchActivity()
                 R.id.change_view_type -> changeViewType()
                 R.id.temporarily_show_hidden -> tryToggleTemporarilyShowHidden()
                 R.id.stop_showing_hidden -> tryToggleTemporarilyShowHidden()
+                R.id.dsremo_find_duplicates -> org.fossify.gallery.dsremo.DuplicateFinder.launch(this)
+                R.id.dsremo_strip_location -> org.fossify.gallery.dsremo.ExifLocationStripper.launch(this)
+                R.id.dsremo_compress_photos -> org.fossify.gallery.dsremo.PhotoCompressor.launch(this)
                 R.id.temporarily_show_excluded -> tryToggleTemporarilyShowExcluded()
                 R.id.stop_showing_excluded -> tryToggleTemporarilyShowExcluded()
                 R.id.create_new_folder -> createNewFolder()
@@ -612,7 +660,9 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             checkOTGPath()
             checkDefaultSpamFolders()
 
-            if (config.showAll) {
+            val skipDefaultFolderJump =
+                intent.getBooleanExtra("dsremo_skip_default_folder", false)
+            if (config.showAll && !skipDefaultFolderJump) {
                 showAllMedia()
             } else {
                 getDirectories()
@@ -743,35 +793,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             .map { FileDirItem(it.absolutePath, it.name, true) }
             .toMutableList() as ArrayList<FileDirItem>
 
-        when {
-            fileDirItems.isEmpty() -> return
-            fileDirItems.size == 1 -> {
-                try {
-                    toast(
-                        String.format(
-                            getString(org.fossify.commons.R.string.deleting_folder),
-                            fileDirItems.first().name
-                        )
-                    )
-                } catch (e: Exception) {
-                    showErrorToast(e)
-                }
-            }
-
-            else -> {
-                val baseString = if (config.useRecycleBin && !config.tempSkipRecycleBin) {
-                    org.fossify.commons.R.plurals.moving_items_into_bin
-                } else {
-                    org.fossify.commons.R.plurals.delete_items
-                }
-
-                toast(
-                    msg = resources.getQuantityString(
-                        baseString, fileDirItems.size, fileDirItems.size
-                    )
-                )
-            }
-        }
+        if (fileDirItems.isEmpty()) return
 
         val itemsToDelete = ArrayList<FileDirItem>()
         val filter = config.filterMedia
@@ -793,16 +815,76 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             val pathsToDelete = ArrayList<String>()
             itemsToDelete.mapTo(pathsToDelete) { it.path }
 
-            movePathsInRecycleBin(pathsToDelete) {
-                if (it) {
+            movePathsInRecycleBin(pathsToDelete) { movedToBin ->
+                if (movedToBin) {
+                    val movedFolderCount = fileDirItems.size
+                    if (movedFolderCount == 1) {
+                        toast(
+                            String.format(
+                                getString(org.fossify.commons.R.string.deleting_folder),
+                                fileDirItems.first().name
+                            )
+                        )
+                    } else {
+                        toast(
+                            msg = resources.getQuantityString(
+                                org.fossify.commons.R.plurals.moving_items_into_bin,
+                                movedFolderCount,
+                                movedFolderCount
+                            )
+                        )
+                    }
                     deleteFilteredFileDirItems(itemsToDelete, folders)
                 } else {
-                    toast(org.fossify.commons.R.string.unknown_error_occurred)
+                    showDsremoDeleteFailedPrompt()
                 }
             }
         } else {
+            val deletedFolderCount = fileDirItems.size
+            if (deletedFolderCount == 1) {
+                toast(
+                    String.format(
+                        getString(org.fossify.commons.R.string.deleting_folder),
+                        fileDirItems.first().name
+                    )
+                )
+            } else {
+                toast(
+                    msg = resources.getQuantityString(
+                        org.fossify.commons.R.plurals.delete_items,
+                        deletedFolderCount,
+                        deletedFolderCount
+                    )
+                )
+            }
             deleteFilteredFileDirItems(itemsToDelete, folders)
         }
+    }
+
+    private fun showDsremoDeleteFailedPrompt() {
+        val requiresAllFiles = isRPlus() && !android.os.Environment.isExternalStorageManager()
+        if (!requiresAllFiles) {
+            toast(org.fossify.commons.R.string.unknown_error_occurred)
+            return
+        }
+        val settingsAction = getString(org.fossify.commons.R.string.settings)
+        val dismissAction = getString(org.fossify.commons.R.string.later)
+        val dialogBuilder = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.dsremo_delete_failed_title)
+            .setMessage(R.string.dsremo_delete_failed_rationale)
+            .setPositiveButton(settingsAction) { _, _ ->
+                val allFilesSettingsIntent = Intent(
+                    android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
+                    Uri.parse("package:$packageName")
+                )
+                try {
+                    startActivity(allFilesSettingsIntent)
+                } catch (_: android.content.ActivityNotFoundException) {
+                    startActivity(Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION))
+                }
+            }
+            .setNegativeButton(dismissAction, null)
+        dialogBuilder.show()
     }
 
     private fun deleteFilteredFileDirItems(
@@ -1066,6 +1148,19 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     }
 
     private fun itemClicked(path: String) {
+        if (SmartAlbums.isSmartAlbumPath(path)) {
+            val range = SmartAlbums.computeRanges(this).firstOrNull { it.path == path }
+            Intent(this, MediaActivity::class.java).apply {
+                putExtra(SKIP_AUTHENTICATION, true)
+                putExtra(DIRECTORY, path)
+                if (range != null) {
+                    putExtra(DSREMO_EXTRA_DATE_RANGE_FROM, range.fromMs)
+                    putExtra(DSREMO_EXTRA_DATE_RANGE_TO, range.toMs)
+                }
+                handleMediaIntent(this)
+            }
+            return
+        }
         handleLockedFolderOpening(path) { success ->
             if (success) {
                 Intent(this, MediaActivity::class.java).apply {
@@ -1097,6 +1192,16 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
         mIsGettingDirs = false
         mShouldStopFetching = false
 
+        mDsremoSmartAlbums = if (config.dsremoShowSmartAlbums) {
+            try {
+                SmartAlbums.buildVirtualDirectories(applicationContext)
+            } catch (ignored: Exception) {
+                ArrayList()
+            }
+        } else {
+            ArrayList()
+        }
+
         // if hidden item showing is disabled but all Favorite items are hidden, hide the Favorites folder
         if (!config.shouldShowHidden) {
             val favoritesFolder = newDirs.firstOrNull { it.areFavorites() }
@@ -1106,6 +1211,28 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             ) {
                 newDirs.remove(favoritesFolder)
             }
+        }
+
+        if (!config.dsremoShowSystemHidden) {
+            val systemHiddenDirs = newDirs.filter {
+                org.fossify.gallery.extensions.isDsremoSystemHiddenFolderPath(it.path)
+            }
+            newDirs.removeAll(systemHiddenDirs)
+        }
+
+        if (config.temporarilyShowHidden) {
+            val userHiddenSet = config.dsremoUserHiddenFolders
+            val userHiddenOnly = newDirs.filter { userHiddenSet.contains(it.path) }
+            val includeSystemHidden = config.dsremoShowSystemHidden
+            val visibleWhenShowingHidden = if (includeSystemHidden) {
+                userHiddenOnly + newDirs.filter {
+                    !userHiddenSet.contains(it.path) && it.path.getFilenameFromPath().startsWith('.')
+                }
+            } else {
+                userHiddenOnly
+            }
+            newDirs.clear()
+            newDirs.addAll(visibleWhenShowingHidden)
         }
 
         val dirs = getSortedDirectories(newDirs)
@@ -1118,6 +1245,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
         runOnUiThread {
             checkPlaceholderVisibility(dirs)
             setupAdapter(dirs.clone() as ArrayList<Directory>)
+            maybePromptSensitiveFolders(dirs)
         }
 
         // cached folders have been loaded, recheck folders one by one starting with the first displayed
@@ -1487,6 +1615,11 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             currentPathPrefix = mCurrentPathPrefix
         ).clone() as ArrayList<Directory>
 
+        if (config.dsremoShowSmartAlbums && mCurrentPathPrefix.isEmpty() && mDsremoSmartAlbums.isNotEmpty()) {
+            dirsToShow.removeAll { SmartAlbums.isSmartAlbumPath(it.path) }
+            mDsremoSmartAlbums.reversed().forEach { dirsToShow.add(0, it) }
+        }
+
         if (currAdapter == null || forceRecreate) {
             mDirsIgnoringSearch = dirs
             initZoomListener()
@@ -1746,6 +1879,30 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     private fun checkWhatsNewDialog() {
         arrayListOf<Release>().apply {
             checkWhatsNew(this, BuildConfig.VERSION_CODE)
+        }
+    }
+
+    private fun maybePromptSensitiveFolders(dirs: ArrayList<Directory>) {
+        val sensitiveKeywordRegex = Regex("(?i)aadhaar|aadhar|uidai|pan[\\s_-]?card|passport")
+        val alreadyPrompted = config.dsremoSensitiveFoldersPromptedFor
+        val alreadySensitive = config.dsremoSensitiveFolders
+        val candidateDir = dirs.firstOrNull { directory ->
+            val hasKeyword = sensitiveKeywordRegex.containsMatchIn(directory.name) ||
+                sensitiveKeywordRegex.containsMatchIn(directory.path.getFilenameFromPath())
+            hasKeyword && directory.path !in alreadyPrompted && directory.path !in alreadySensitive
+        } ?: return
+
+        config.markSensitivePrompted(candidateDir.path)
+        val message = getString(R.string.dsremo_sensitive_folder_prompt_message, candidateDir.name)
+        org.fossify.commons.dialogs.ConfirmationDialog(
+            this,
+            message,
+            0,
+            R.string.dsremo_yes_mark_sensitive,
+            R.string.dsremo_no_thanks
+        ) {
+            config.addSensitiveFolders(hashSetOf(candidateDir.path))
+            getRecyclerAdapter()?.notifyDataSetChanged()
         }
     }
 }

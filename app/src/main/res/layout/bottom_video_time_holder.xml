@@ -127,4 +127,21 @@
         app:layout_constraintTop_toTopOf="@id/video_toggle_play_pause"
         tools:visibility="visible" />
 
+    <ImageView
+        android:id="@+id/video_toggle_loop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:background="@drawable/darkened_automatic_circle_background"
+        android:gravity="center"
+        android:minWidth="@dimen/video_player_button_width"
+        android:paddingHorizontal="@dimen/normal_margin"
+        android:paddingVertical="@dimen/medium_margin"
+        android:src="@drawable/dsremo_ic_loop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/video_toggle_play_pause"
+        app:layout_constraintEnd_toStartOf="@id/video_toggle_mute"
+        app:layout_constraintTop_toTopOf="@id/video_toggle_play_pause"
+        tools:visibility="visible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

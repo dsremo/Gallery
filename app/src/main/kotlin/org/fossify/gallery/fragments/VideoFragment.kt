@@ -130,6 +130,7 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener,
     private var mOriginalPlaybackSpeed = 1f
     private var mIsLongPressActive = false
     private var mHasAudio = true
+    private var mLoopEnabled = false
 
     private val mTouchHoldRunnable = Runnable {
         mView.parent.requestDisallowInterceptTouchEvent(true)
@@ -180,6 +181,10 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener,
             bottomVideoTimeHolder.videoToggleMute.setOnClickListener {
                 mConfig.muteVideos = !mConfig.muteVideos
                 updatePlayerMuteState(showToast = true)
+            }
+            bottomVideoTimeHolder.videoToggleLoop.setOnClickListener {
+                mLoopEnabled = !mLoopEnabled
+                applyLoopState()
             }
 
             videoSurfaceFrame.controller.settings.swallowDoubleTaps = true
@@ -517,7 +522,7 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener,
             .setLoadControl(loadControl)
             .build()
             .apply {
-                if (mConfig.loopVideos && listener?.isSlideShowActive() == false) {
+                if (mLoopEnabled && listener?.isSlideShowActive() == false) {
                     repeatMode = Player.REPEAT_MODE_ONE
                 }
                 setPlaybackSpeed(mConfig.playbackSpeed)
@@ -637,7 +642,7 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener,
     }
 
     private fun openPanorama() {
-        TODO("Panorama is not yet implemented.")
+        activity?.toast(org.fossify.commons.R.string.unknown_error_occurred)
     }
 
     override fun fullscreenToggled(isFullscreen: Boolean) {
@@ -649,7 +654,8 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener,
             binding.bottomVideoTimeHolder.videoDuration,
             binding.bottomVideoTimeHolder.videoTogglePlayPause,
             binding.bottomVideoTimeHolder.videoPlaybackSpeed,
-            binding.bottomVideoTimeHolder.videoToggleMute
+            binding.bottomVideoTimeHolder.videoToggleMute,
+            binding.bottomVideoTimeHolder.videoToggleLoop
         ).forEach {
             it.isClickable = !mIsFullscreen
         }
@@ -778,6 +784,12 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener,
         }
     }
 
+    private fun applyLoopState() {
+        mExoPlayer?.repeatMode = if (mLoopEnabled) Player.REPEAT_MODE_ONE else Player.REPEAT_MODE_OFF
+        val drawableId = if (mLoopEnabled) R.drawable.dsremo_ic_loop_on else R.drawable.dsremo_ic_loop
+        binding.bottomVideoTimeHolder.videoToggleLoop.setImageResource(drawableId)
+    }
+
     private fun updatePlayerMuteState(showToast: Boolean = false) {
         val isMuted = mConfig.muteVideos
         if (mHasAudio) {
@@ -816,7 +828,7 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener,
             restoreLastVideoSavedPosition()
         }
 
-        if (!wasEnded || !mConfig.loopVideos) {
+        if (!wasEnded || !mLoopEnabled) {
             mPlayPauseButton.setImageResource(org.fossify.commons.R.drawable.ic_pause_outline_vector)
         }
 
@@ -824,6 +836,8 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener,
             binding.videoPlayOutline.beGone()
             mPlayPauseButton.beVisible()
             binding.bottomVideoTimeHolder.videoToggleMute.beVisible()
+            binding.bottomVideoTimeHolder.videoToggleLoop.beVisible()
+            applyLoopState()
             binding.bottomVideoTimeHolder.videoPlaybackSpeed.beVisible()
             binding.bottomVideoTimeHolder.videoPlaybackSpeed.text =
                 "${DecimalFormat("#.##").format(mConfig.playbackSpeed)}x"
@@ -914,7 +928,7 @@ class VideoFragment : ViewPagerFragment(), TextureView.SurfaceTextureListener,
         }
 
         mCurrTime = mExoPlayer!!.duration
-        if (listener?.videoEnded() == false && mConfig.loopVideos) {
+        if (listener?.videoEnded() == false && mLoopEnabled) {
             playVideo()
         } else {
             mSeekBar.progress = mSeekBar.max

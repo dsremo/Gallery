@@ -107,6 +107,7 @@ open class VideoPlayerActivity : BaseViewerActivity(), SeekBar.OnSeekBarChangeLi
 
     private var mIsFullscreen = false
     private var mIsPlaying = false
+    private var mLoopEnabled = false
     private var mWasVideoStarted = false
     private var mIsDragged = false
     private var mIsOrientationLocked = false
@@ -221,8 +222,8 @@ open class VideoPlayerActivity : BaseViewerActivity(), SeekBar.OnSeekBarChangeLi
                 R.id.menu_force_landscape -> toggleOrientation(SCREEN_ORIENTATION_LANDSCAPE)
                 R.id.menu_force_landscape_reverse -> toggleOrientation(SCREEN_ORIENTATION_REVERSE_LANDSCAPE)
                 R.id.menu_default_orientation -> toggleOrientation(SCREEN_ORIENTATION_UNSPECIFIED)
-                R.id.menu_open_with -> openPath(mUri!!.toString(), true)
-                R.id.menu_share -> shareMediumPath(mUri!!.toString())
+                R.id.menu_open_with -> mUri?.let { openPath(it.toString(), true) }
+                R.id.menu_share -> mUri?.let { shareMediumPath(it.toString()) }
                 else -> return@setOnMenuItemClickListener false
             }
             return@setOnMenuItemClickListener true
@@ -285,6 +286,10 @@ open class VideoPlayerActivity : BaseViewerActivity(), SeekBar.OnSeekBarChangeLi
         binding.bottomVideoTimeHolder.videoToggleMute.setOnClickListener {
             config.muteVideos = !config.muteVideos
             updatePlayerMuteState(showToast = true)
+        }
+        binding.bottomVideoTimeHolder.videoToggleLoop.setOnClickListener {
+            mLoopEnabled = !mLoopEnabled
+            applyLoopState()
         }
 
         binding.videoSurfaceFrame.setOnClickListener { toggleFullscreen() }
@@ -404,9 +409,7 @@ open class VideoPlayerActivity : BaseViewerActivity(), SeekBar.OnSeekBarChangeLi
                         .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
                         .build(), false
                 )
-                if (config.loopVideos) {
-                    repeatMode = Player.REPEAT_MODE_ONE
-                }
+                repeatMode = if (mLoopEnabled) Player.REPEAT_MODE_ONE else Player.REPEAT_MODE_OFF
                 prepare()
                 initListeners()
             }
@@ -466,6 +469,8 @@ open class VideoPlayerActivity : BaseViewerActivity(), SeekBar.OnSeekBarChangeLi
             binding.bottomVideoTimeHolder.videoTogglePlayPause.beVisible()
             binding.bottomVideoTimeHolder.videoPlaybackSpeed.beVisible()
             binding.bottomVideoTimeHolder.videoToggleMute.beVisible()
+            binding.bottomVideoTimeHolder.videoToggleLoop.beVisible()
+            applyLoopState()
             binding.bottomVideoTimeHolder.videoPlaybackSpeed.text =
                 "${DecimalFormat("#.##").format(config.playbackSpeed)}x"
             mDuration = mExoPlayer!!.duration
@@ -533,6 +538,12 @@ open class VideoPlayerActivity : BaseViewerActivity(), SeekBar.OnSeekBarChangeLi
         } else {
             pauseVideo()
         }
+    }
+
+    private fun applyLoopState() {
+        mExoPlayer?.repeatMode = if (mLoopEnabled) Player.REPEAT_MODE_ONE else Player.REPEAT_MODE_OFF
+        val drawableId = if (mLoopEnabled) R.drawable.dsremo_ic_loop_on else R.drawable.dsremo_ic_loop
+        binding.bottomVideoTimeHolder.videoToggleLoop.setImageResource(drawableId)
     }
 
     private fun updatePlayerMuteState(showToast: Boolean = false) {
@@ -661,6 +672,7 @@ open class VideoPlayerActivity : BaseViewerActivity(), SeekBar.OnSeekBarChangeLi
             binding.bottomVideoTimeHolder.videoNextFile,
             binding.bottomVideoTimeHolder.videoPlaybackSpeed,
             binding.bottomVideoTimeHolder.videoToggleMute,
+            binding.bottomVideoTimeHolder.videoToggleLoop,
             binding.bottomVideoTimeHolder.videoCurrTime,
             binding.bottomVideoTimeHolder.videoSeekbar,
             binding.bottomVideoTimeHolder.videoDuration,
@@ -675,6 +687,7 @@ open class VideoPlayerActivity : BaseViewerActivity(), SeekBar.OnSeekBarChangeLi
             binding.bottomVideoTimeHolder.videoNextFile,
             binding.bottomVideoTimeHolder.videoPlaybackSpeed,
             binding.bottomVideoTimeHolder.videoToggleMute,
+            binding.bottomVideoTimeHolder.videoToggleLoop,
             binding.bottomVideoTimeHolder.videoCurrTime,
             binding.bottomVideoTimeHolder.videoDuration,
         ).forEach {

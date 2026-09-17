@@ -201,7 +201,16 @@ class MediaAdapter(
 
             checkHideBtnVisibility(this, selectedItems)
             checkFavoriteBtnVisibility(this, selectedItems)
+
+            val allSelected = selectedKeys.size >= getSelectableItemCount()
+            findItem(R.id.cab_select_all).setIcon(
+                if (allSelected) R.drawable.dsremo_ic_check_box else R.drawable.dsremo_ic_check_box_outline
+            )
         }
+
+        val allSelected = selectedKeys.size >= getSelectableItemCount() && selectedKeys.isNotEmpty()
+        val titleResource = if (allSelected) R.string.dsremo_selected_of_count_all else R.string.dsremo_selected_of_count
+        actMode?.title = activity.getString(titleResource, selectedKeys.size, getSelectableItemCount())
     }
 
     override fun actionItemPressed(id: Int) {
@@ -222,11 +231,10 @@ class MediaAdapter(
             R.id.cab_share -> shareMedia()
             R.id.cab_rotate_right -> rotateSelection(90)
             R.id.cab_rotate_left -> rotateSelection(270)
-            R.id.cab_rotate_one_eighty -> rotateSelection(180)
             R.id.cab_copy_to -> checkMediaManagementAndCopy(true)
             R.id.cab_move_to -> moveFilesTo()
             R.id.cab_create_shortcut -> createShortcut()
-            R.id.cab_select_all -> selectAll()
+            R.id.cab_select_all -> toggleSelectAll()
             R.id.cab_open_with -> openPath()
             R.id.cab_fix_date_taken -> fixDateTaken()
             R.id.cab_set_as -> setAs()
@@ -236,6 +244,29 @@ class MediaAdapter(
     }
 
     override fun getSelectableItemCount() = media.filter { it is Medium }.size
+
+    private fun toggleSelectAll() {
+        val allSelected = selectedKeys.size >= getSelectableItemCount() && selectedKeys.isNotEmpty()
+        if (allSelected) {
+            deselectAll()
+        } else {
+            selectAll()
+        }
+        actMode?.invalidate()
+    }
+
+    private fun deselectAll() {
+        val positionsToDeselect = ArrayList<Int>()
+        media.forEachIndexed { index, item ->
+            val itemKey = (item as? Medium)?.path?.hashCode() ?: return@forEachIndexed
+            if (selectedKeys.contains(itemKey)) {
+                positionsToDeselect.add(index)
+            }
+        }
+        positionsToDeselect.forEach { position ->
+            toggleItemSelection(false, position, true)
+        }
+    }
 
     override fun getIsItemSelectable(position: Int) = !isASectionTitle(position)
 

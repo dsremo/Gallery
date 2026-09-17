@@ -14,6 +14,12 @@
         android:title="@string/show_all"
         app:showAsAction="always" />
     <item
+        android:id="@+id/dsremo_search"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="@string/dsremo_search"
+        android:visible="false"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/sort"
         android:icon="@drawable/ic_sort_vector"
         android:title="@string/sort_by"
@@ -30,13 +36,28 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/temporarily_show_hidden"
-        android:showAsAction="never"
-        android:title="@string/temporarily_show_hidden"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_unhide_vector"
+        android:title="@string/dsremo_show_hidden_temporarily_short"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/stop_showing_hidden"
+        android:icon="@drawable/ic_hide_vector"
+        android:title="@string/dsremo_hide_hidden_temporarily_short"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/dsremo_find_duplicates"
         android:showAsAction="never"
-        android:title="@string/stop_showing_hidden"
+        android:title="@string/dsremo_find_duplicates"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/dsremo_strip_location"
+        android:showAsAction="never"
+        android:title="@string/dsremo_strip_location"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/dsremo_compress_photos"
+        android:showAsAction="never"
+        android:title="@string/dsremo_compress_photos"
         app:showAsAction="never" />
     <item
         android:id="@+id/temporarily_show_excluded"
@@ -51,7 +72,7 @@
     <item
         android:id="@+id/set_as_default_folder"
         android:showAsAction="never"
-        android:title="@string/set_as_default_folder"
+        android:title="@string/dsremo_unset_default_open_folder"
         app:showAsAction="never" />
     <item
         android:id="@+id/create_new_folder"

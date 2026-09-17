@@ -111,7 +111,16 @@
     </item>
     <item
         android:id="@+id/cab_select_all"
-        android:icon="@drawable/ic_select_all_vector"
+        android:icon="@drawable/dsremo_ic_check_box_outline"
+        android:showAsAction="always"
         android:title="@string/select_all"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/cab_mark_sensitive"
+        android:title="@string/dsremo_mark_sensitive"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/cab_unmark_sensitive"
+        android:title="@string/dsremo_unmark_sensitive"
+        app:showAsAction="never" />
 </menu>

@@ -110,8 +110,13 @@ abstract class ViewPagerFragment : Fragment() {
                 JxlCoder.getSize(file.readBytes())
             } catch (ignored: OutOfMemoryError) {
                 null
+            } catch (ignored: UnsatisfiedLinkError) {
+                null
+            } catch (ignored: Throwable) {
+                null
             }
-            return resolution?.let { Point(it.width,it.height).formatAsResolution() }
+            if (resolution != null) return Point(resolution.width, resolution.height).formatAsResolution()
+            return context?.getResolution(file.absolutePath)?.formatAsResolution()
         } else {
             return context?.getResolution(file.absolutePath)?.formatAsResolution()
         }

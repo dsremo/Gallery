@@ -86,7 +86,10 @@ import org.fossify.gallery.extensions.showRecycleBinEmptyingDialog
 import org.fossify.gallery.extensions.showRestoreConfirmationDialog
 import org.fossify.gallery.extensions.tryDeleteFileDirItem
 import org.fossify.gallery.extensions.updateWidgets
+import org.fossify.gallery.dsremo.SmartAlbums
 import org.fossify.gallery.helpers.DIRECTORY
+import org.fossify.gallery.helpers.DSREMO_EXTRA_DATE_RANGE_FROM
+import org.fossify.gallery.helpers.DSREMO_EXTRA_DATE_RANGE_TO
 import org.fossify.gallery.helpers.GET_ANY_INTENT
 import org.fossify.gallery.helpers.GET_IMAGE_INTENT
 import org.fossify.gallery.helpers.GET_VIDEO_INTENT
@@ -125,6 +128,9 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
     private var mIsGettingMedia = false
     private var mAllowPickingMultiple = false
     private var mShowAll = false
+    private var mDsremoIsSmartAlbum = false
+    private var mDsremoSmartAlbumFrom = 0L
+    private var mDsremoSmartAlbumTo = 0L
     private var mLoadedInitialPhotos = false
     private var mShowLoadingIndicator = true
     private var mWasFullscreenViewOpen = false
@@ -170,6 +176,12 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             showErrorToast(e)
             finish()
             return
+        }
+
+        if (SmartAlbums.isSmartAlbumPath(mPath)) {
+            mDsremoIsSmartAlbum = true
+            mDsremoSmartAlbumFrom = intent.getLongExtra(DSREMO_EXTRA_DATE_RANGE_FROM, 0L)
+            mDsremoSmartAlbumTo = intent.getLongExtra(DSREMO_EXTRA_DATE_RANGE_TO, Long.MAX_VALUE)
         }
 
         setupOptionsMenu()
@@ -364,6 +376,21 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
         binding.mediaMenu.toggleHideOnScroll(!config.scrollHorizontally)
         binding.mediaMenu.setupMenu()
 
+        try {
+            val dsremoSearchLeadingIcon = binding.mediaMenu.findViewById<android.widget.ImageView>(
+                org.fossify.commons.R.id.top_toolbar_search_icon
+            )
+            dsremoSearchLeadingIcon?.apply {
+                setImageResource(org.fossify.commons.R.drawable.ic_arrow_left_vector)
+                contentDescription = getString(org.fossify.commons.R.string.back)
+                isClickable = true
+                isFocusable = true
+                setOnClickListener { navigateBackToDirectories() }
+                visibility = android.view.View.VISIBLE
+            }
+        } catch (_: Exception) {
+        }
+
         binding.mediaMenu.onSearchTextChangedListener = { text ->
             mLastSearchedText = text
             searchQueryChanged(text)
@@ -427,7 +454,7 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
             mStoredMarkFavoriteItems = markFavoriteItems
             mStoredThumbnailSpacing = thumbnailSpacing
             mStoredRoundedCorners = fileRoundedCorners
-            mShowAll = showAll && mPath != RECYCLE_BIN
+            mShowAll = (showAll || mDsremoIsSmartAlbum) && mPath != RECYCLE_BIN
         }
     }
 
@@ -461,21 +488,23 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
 
     private fun tryLoadGallery() {
         requestMediaPermissions {
-            val dirName = when (mPath) {
-                FAVORITES -> getString(org.fossify.commons.R.string.favorites)
-                RECYCLE_BIN -> getString(org.fossify.commons.R.string.recycle_bin)
-                config.OTGPath -> getString(org.fossify.commons.R.string.usb)
+            val dirName = when {
+                mPath == FAVORITES -> getString(org.fossify.commons.R.string.favorites)
+                mPath == RECYCLE_BIN -> getString(org.fossify.commons.R.string.recycle_bin)
+                mPath == config.OTGPath -> getString(org.fossify.commons.R.string.usb)
+                mDsremoIsSmartAlbum -> SmartAlbums.computeRanges(this)
+                    .firstOrNull { it.path == mPath }?.name ?: mPath
                 else -> getHumanizedFilename(mPath)
             }
 
             val searchHint = if (mShowAll) {
                 getString(org.fossify.commons.R.string.search_files)
             } else {
-                getString(org.fossify.commons.R.string.search_in_placeholder, dirName)
+                dirName
             }
 
             binding.mediaMenu.updateHintText(searchHint)
-            if (!mShowAll) {
+            if (!mShowAll || mDsremoIsSmartAlbum) {
                 binding.mediaMenu.toggleForceArrowBackIcon(true)
                 binding.mediaMenu.onNavigateBackClickListener = {
                     performDefaultBack()
@@ -1005,7 +1034,22 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
     private fun gotMedia(media: ArrayList<ThumbnailItem>, isFromCache: Boolean) {
         mIsGettingMedia = false
         checkLastMediaChanged()
-        mMedia = media
+        mMedia = if (mDsremoIsSmartAlbum) {
+            val fromMs = mDsremoSmartAlbumFrom
+            val toMs = mDsremoSmartAlbumTo
+            val filteredMediums = ArrayList<Medium>(
+                media
+                    .mapNotNull { it as? Medium }
+                    .filter { medium -> medium.taken in fromMs until toMs }
+            )
+            try {
+                MediaFetcher(applicationContext).groupMedia(filteredMediums, mPath)
+            } catch (ignored: Exception) {
+                ArrayList<ThumbnailItem>(filteredMediums)
+            }
+        } else {
+            media
+        }
 
         runOnUiThread {
             binding.loadingIndicator.hide()
@@ -1138,5 +1182,14 @@ class MediaActivity : SimpleActivity(), MediaOperationsListener {
     private fun unsetAsDefaultFolder() {
         config.defaultFolder = ""
         refreshMenuItems()
+    }
+
+    private fun navigateBackToDirectories() {
+        val directoriesIntent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            putExtra("dsremo_skip_default_folder", true)
+        }
+        startActivity(directoriesIntent)
+        finish()
     }
 }

@@ -20,22 +20,15 @@
         android:title="@string/share"
         app:showAsAction="always" />
     <item
-        android:id="@+id/menu_rotate"
+        android:id="@+id/menu_rotate_right"
         android:icon="@drawable/ic_rotate_right_vector"
-        android:title="@string/rotate"
-        app:showAsAction="ifRoom">
-        <menu>
-            <item
-                android:id="@+id/menu_rotate_right"
-                android:title="@string/rotate_right" />
-            <item
-                android:id="@+id/menu_rotate_left"
-                android:title="@string/rotate_left" />
-            <item
-                android:id="@+id/menu_rotate_one_eighty"
-                android:title="@string/rotate_one_eighty" />
-        </menu>
-    </item>
+        android:title="@string/rotate_right"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_rotate_left"
+        android:icon="@drawable/ic_rotate_left_vector"
+        android:title="@string/rotate_left"
+        app:showAsAction="always" />
     <item
         android:id="@+id/menu_properties"
         android:icon="@drawable/ic_info_vector"

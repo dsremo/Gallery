@@ -726,7 +726,7 @@ class PhotoFragment : ViewPagerFragment() {
     private fun getFilePathToShow() = if (mMedium.isPortrait()) mCurrentPortraitPhotoPath else getPathToLoad(mMedium)
 
     private fun openPanorama() {
-        TODO("Panorama is not yet implemented.")
+        activity?.toast(org.fossify.commons.R.string.unknown_error_occurred)
     }
 
     private fun scheduleZoomableView() {

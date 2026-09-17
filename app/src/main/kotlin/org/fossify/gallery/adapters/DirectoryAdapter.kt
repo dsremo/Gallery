@@ -189,8 +189,33 @@ class DirectoryAdapter(
 
             findItem(R.id.cab_create_shortcut).isVisible = isOneItemSelected
 
+            val markableSelection = selectedPaths.filter { it != FAVORITES && it != RECYCLE_BIN }
+            findItem(R.id.cab_mark_sensitive).isVisible = markableSelection.any { !config.isFolderSensitive(it) }
+            findItem(R.id.cab_unmark_sensitive).isVisible = markableSelection.any { config.isFolderSensitive(it) }
+
             checkHideBtnVisibility(this, selectedPaths)
             checkPinBtnVisibility(this, selectedPaths)
+
+            val allSelected = selectedKeys.size >= getSelectableItemCount()
+            findItem(R.id.cab_select_all).setIcon(
+                if (allSelected) R.drawable.dsremo_ic_check_box else R.drawable.dsremo_ic_check_box_outline
+            )
+        }
+
+        val allSelected = selectedKeys.size >= getSelectableItemCount() && selectedKeys.isNotEmpty()
+        val titleResource = if (allSelected) R.string.dsremo_selected_of_count_all else R.string.dsremo_selected_of_count
+        actMode?.title = activity.getString(titleResource, selectedKeys.size, getSelectableItemCount())
+    }
+
+    private fun deselectAll() {
+        val positionsToDeselect = ArrayList<Int>()
+        dirs.forEachIndexed { index, directory ->
+            if (selectedKeys.contains(directory.path.hashCode())) {
+                positionsToDeselect.add(index)
+            }
+        }
+        positionsToDeselect.forEach { position ->
+            toggleItemSelection(false, position, true)
         }
     }
 
@@ -216,12 +241,25 @@ class DirectoryAdapter(
             R.id.cab_unlock -> unlockFolder()
             R.id.cab_copy_to -> copyFilesTo()
             R.id.cab_move_to -> moveFilesTo()
-            R.id.cab_select_all -> selectAll()
+            R.id.cab_select_all -> toggleSelectAll()
             R.id.cab_create_shortcut -> tryCreateShortcut()
             R.id.cab_delete -> askConfirmDelete()
             R.id.cab_select_photo -> tryChangeAlbumCover(false)
             R.id.cab_use_default -> tryChangeAlbumCover(true)
+            R.id.cab_mark_sensitive -> toggleSensitiveState(true)
+            R.id.cab_unmark_sensitive -> toggleSensitiveState(false)
         }
+    }
+
+    private fun toggleSensitiveState(markSensitive: Boolean) {
+        val selectedPaths = getSelectedPaths().filter { it != FAVORITES && it != RECYCLE_BIN }.toHashSet()
+        if (markSensitive) {
+            config.addSensitiveFolders(selectedPaths)
+        } else {
+            config.removeSensitiveFolders(selectedPaths)
+        }
+        notifyDataSetChanged()
+        finishActMode()
     }
 
     override fun getSelectableItemCount() = dirs.size
@@ -376,6 +414,7 @@ class DirectoryAdapter(
                 activity.handleLockedFolderOpening(path) { success ->
                     if (success) {
                         if (path.containsNoMedia()) {
+                            config.removeDsremoUserHiddenFolder(path)
                             activity.removeNoMedia(path) {
                                 if (config.shouldShowHidden) {
                                     updateFolderNames()
@@ -448,6 +487,7 @@ class DirectoryAdapter(
     }
 
     private fun hideFolder(path: String) {
+        config.addDsremoUserHiddenFolder(path)
         activity.addNoMedia(path) {
             if (config.shouldShowHidden) {
                 updateFolderNames()
@@ -798,6 +838,16 @@ class DirectoryAdapter(
 
     private fun getSelectedPaths() = getSelectedItems().map { it.path } as ArrayList<String>
 
+    private fun toggleSelectAll() {
+        val allSelected = selectedKeys.size >= getSelectableItemCount() && selectedKeys.isNotEmpty()
+        if (allSelected) {
+            deselectAll()
+        } else {
+            selectAll()
+        }
+        actMode?.invalidate()
+    }
+
     private fun getFirstSelectedItem() = getItemWithKey(selectedKeys.first())
 
     private fun getFirstSelectedItemPath() = getFirstSelectedItem()?.path
@@ -872,7 +922,8 @@ class DirectoryAdapter(
                 }
             }
 
-            if (lockedFolderPaths.contains(directory.path)) {
+            val isSensitiveHidden = config.dsremoBlurSensitiveThumbnails && config.isFolderSensitive(directory.path)
+            if (lockedFolderPaths.contains(directory.path) || isSensitiveHidden) {
                 dirLock.beVisible()
                 dirLock.background = ColorDrawable(root.context.getProperBackgroundColor())
                 dirLock.applyColorFilter(root.context.getProperBackgroundColor().getContrastColor())
