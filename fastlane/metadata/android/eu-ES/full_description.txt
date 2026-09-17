@@ -21,6 +21,6 @@ JPEG, JPEG XL, PNG, MP4, MKV, RAW, SVG, GIF, Bideoak eta gehiago - Zure oroitzap
  ✨MATERIALEN DISEINUA GAI DINAMIKOEKIN:
 Esperimentatu materialen diseinu intuitiboaren edertasuna gai dinamikoekin. Gehiago nahi duzu? Murgil zaitez gai pertsonalizatuetan eta egin zure galeria benetan berezia.
 
-Iturburu irekiko kodea: https://www.github.com/fossifyorg
-Erregistratu komunitatean Reddit: https://www.reddit.com/r/fossify
-Konektatu Telegramen: https://t.me/fossify
+
+Based on Fossify Gallery (GPL-3.0). Modified 2026 by dsremo.
+Source: https://github.com/dsremo/Gallery
