@@ -401,6 +401,14 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(TEMP_SKIP_RECYCLE_BIN, false)
         set(tempSkipRecycleBin) = prefs.edit().putBoolean(TEMP_SKIP_RECYCLE_BIN, tempSkipRecycleBin).apply()
 
+    var dsremoTrashRetentionDays: Int
+        get() = prefs.getInt(DSREMO_TRASH_RETENTION_DAYS, 30)
+        set(value) = prefs.edit().putInt(DSREMO_TRASH_RETENTION_DAYS, value.coerceIn(0, 365)).apply()
+
+    var dsremoTrashLastCleanupMs: Long
+        get() = prefs.getLong(DSREMO_TRASH_LAST_CLEANUP_MS, 0L)
+        set(value) = prefs.edit().putLong(DSREMO_TRASH_LAST_CLEANUP_MS, value).apply()
+
     var wereFavoritesPinned: Boolean
         get() = prefs.getBoolean(WERE_FAVORITES_PINNED, false)
         set(wereFavoritesPinned) = prefs.edit().putBoolean(WERE_FAVORITES_PINNED, wereFavoritesPinned).apply()
@@ -478,7 +486,7 @@ class Config(context: Context) : BaseConfig(context) {
     )
 
     var showRecycleBinAtFolders: Boolean
-        get() = prefs.getBoolean(SHOW_RECYCLE_BIN_AT_FOLDERS, true)
+        get() = prefs.getBoolean(SHOW_RECYCLE_BIN_AT_FOLDERS, false)
         set(showRecycleBinAtFolders) = prefs.edit().putBoolean(SHOW_RECYCLE_BIN_AT_FOLDERS, showRecycleBinAtFolders).apply()
 
     var allowZoomingImages: Boolean
@@ -490,8 +498,8 @@ class Config(context: Context) : BaseConfig(context) {
         set(lastBinCheck) = prefs.edit().putLong(LAST_BIN_CHECK, lastBinCheck).apply()
 
     var showHighestQuality: Boolean
-        get() = prefs.getBoolean(SHOW_HIGHEST_QUALITY, false)
-        set(showHighestQuality) = prefs.edit().putBoolean(SHOW_HIGHEST_QUALITY, showHighestQuality).apply()
+        get() = true
+        set(_) {}
 
     var showRecycleBinLast: Boolean
         get() = prefs.getBoolean(SHOW_RECYCLE_BIN_LAST, false)
@@ -592,7 +600,7 @@ class Config(context: Context) : BaseConfig(context) {
         set(avoidShowingAllFilesPrompt) = prefs.edit().putBoolean(AVOID_SHOWING_ALL_FILES_PROMPT, avoidShowingAllFilesPrompt).apply()
 
     var searchAllFilesByDefault: Boolean
-        get() = prefs.getBoolean(SEARCH_ALL_FILES_BY_DEFAULT, false)
+        get() = prefs.getBoolean(SEARCH_ALL_FILES_BY_DEFAULT, true)
         set(searchAllFilesByDefault) = prefs.edit().putBoolean(SEARCH_ALL_FILES_BY_DEFAULT, searchAllFilesByDefault).apply()
 
     var lastExportedFavoritesFolder: String
@@ -602,4 +610,68 @@ class Config(context: Context) : BaseConfig(context) {
     var showPermissionRationale: Boolean
         get() = prefs.getBoolean(SHOW_PERMISSION_RATIONALE, false)
         set(showPermissionRationale) = prefs.edit().putBoolean(SHOW_PERMISSION_RATIONALE, showPermissionRationale).apply()
+
+    var dsremoStripExifOnShare: Boolean
+        get() = prefs.getBoolean(DSREMO_STRIP_EXIF_ON_SHARE, false)
+        set(value) = prefs.edit().putBoolean(DSREMO_STRIP_EXIF_ON_SHARE, value).apply()
+
+    var dsremoShowSmartAlbums: Boolean
+        get() = prefs.getBoolean(DSREMO_SHOW_SMART_ALBUMS, false)
+        set(value) = prefs.edit().putBoolean(DSREMO_SHOW_SMART_ALBUMS, value).apply()
+
+    var dsremoBlurSensitiveThumbnails: Boolean
+        get() = prefs.getBoolean(DSREMO_BLUR_SENSITIVE_THUMBNAILS, true)
+        set(value) = prefs.edit().putBoolean(DSREMO_BLUR_SENSITIVE_THUMBNAILS, value).apply()
+
+    var dsremoSensitiveFolders: Set<String>
+        get() = prefs.getStringSet(DSREMO_SENSITIVE_FOLDERS, HashSet())!!
+        set(value) = prefs.edit().putStringSet(DSREMO_SENSITIVE_FOLDERS, value).apply()
+
+    fun isFolderSensitive(path: String) = dsremoSensitiveFolders.contains(path)
+
+    fun addSensitiveFolders(paths: Set<String>) {
+        val updatedFolders = HashSet(dsremoSensitiveFolders)
+        updatedFolders.addAll(paths)
+        dsremoSensitiveFolders = updatedFolders
+    }
+
+    fun removeSensitiveFolders(paths: Set<String>) {
+        val updatedFolders = HashSet(dsremoSensitiveFolders)
+        updatedFolders.removeAll(paths)
+        dsremoSensitiveFolders = updatedFolders
+    }
+
+    var dsremoSensitiveFoldersPromptedFor: Set<String>
+        get() = prefs.getStringSet(DSREMO_SENSITIVE_FOLDERS_PROMPTED, HashSet())!!
+        set(value) = prefs.edit().putStringSet(DSREMO_SENSITIVE_FOLDERS_PROMPTED, value).apply()
+
+    fun markSensitivePrompted(path: String) {
+        val updatedPrompted = HashSet(dsremoSensitiveFoldersPromptedFor)
+        updatedPrompted.add(path)
+        dsremoSensitiveFoldersPromptedFor = updatedPrompted
+    }
+
+    var dsremoAllFilesPromptShown: Boolean
+        get() = prefs.getBoolean(DSREMO_ALL_FILES_PROMPT_SHOWN, false)
+        set(value) = prefs.edit().putBoolean(DSREMO_ALL_FILES_PROMPT_SHOWN, value).apply()
+
+    var dsremoUserHiddenFolders: Set<String>
+        get() = prefs.getStringSet(DSREMO_USER_HIDDEN_FOLDERS, HashSet())!!
+        set(value) = prefs.edit().putStringSet(DSREMO_USER_HIDDEN_FOLDERS, value).apply()
+
+    fun addDsremoUserHiddenFolder(path: String) {
+        val updatedHidden = HashSet(dsremoUserHiddenFolders)
+        updatedHidden.add(path)
+        dsremoUserHiddenFolders = updatedHidden
+    }
+
+    fun removeDsremoUserHiddenFolder(path: String) {
+        val updatedHidden = HashSet(dsremoUserHiddenFolders)
+        updatedHidden.remove(path)
+        dsremoUserHiddenFolders = updatedHidden
+    }
+
+    var dsremoShowSystemHidden: Boolean
+        get() = prefs.getBoolean(DSREMO_SHOW_SYSTEM_HIDDEN, false)
+        set(value) = prefs.edit().putBoolean(DSREMO_SHOW_SYSTEM_HIDDEN, value).apply()
 }
