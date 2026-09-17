@@ -243,15 +243,15 @@
     <string name="faq_17_text">See funktsionaalsus lakkas töötamast tänu süsteemimuudatustele, mis lisandusid Android 11-ga, mispuhul rakendus ei saa enam sirvida reaalseid kaustu, vaid tugineb andmete hankimisel nn MediaStore\'ile.</string>
     <string name="faq_18_title">Miks ma näen video taasesituse ajal reklaami\?</string>
     <string name="faq_18_text">Meie rakendustes ei ole üldse reklaami. Kui näed neid videote esitamise ajal, pead kasutama mõnda muud rakendust videomängijana. Proovi leida seadme seadetest oma vaikimisi videomängija, seejärel tee selle kohta „Eemalda vaikimisi seaded“. Järgmine kord, kui alustad videoesitust, näed rakenduse valikut, kus saad valida, millist rakendust soovid kasutada.</string>
-    <string name="excluded_activity_placeholder">Kaustade välistamisel peidetakse nad koos alamkaustadega Fossify Galeriist, kuid nad on jätkuvalt nähtavalt muudes rakendustes.
+    <string name="excluded_activity_placeholder">Kaustade välistamisel peidetakse nad koos alamkaustadega dsremo Galeriist, kuid nad on jätkuvalt nähtavalt muudes rakendustes.
 \n
 \nKui sa soovid neid peita ka muudest rakendustest, siis kasuta funktsionaalsust „Peida“.</string>
-    <string name="faq_5_text">Kaustade välistamisel ei kuvata neid koos alamkaustadega vaid Fossify Galeriis, kuid kaustade peitmine on nutiseadme ülene ning nad pole nähtavad ka muudest galeriirakendustest. Peitmisel luuakse peidetavasse kausta fail „.nomedia“, mida saad soovi korral kustutada iga korraliku failihalduriga. Palun arvesta, et mõnede nutiseadmete puhul pole võimalik peita kaustu Camera, Screenshots ja Downloads.</string>
-    <string name="faq_1_title">Kuidas saan Fossify galeriist teha selle seadme vaikimisi galeriirakenduse?</string>
-    <string name="exclude_folder_description">Järgnevaga välistad valiku koos alamkaustadega vaid Fossify galeriist. Välistatud kaustu saad hallata seadistustest.</string>
+    <string name="faq_5_text">Kaustade välistamisel ei kuvata neid koos alamkaustadega vaid dsremo Galeriis, kuid kaustade peitmine on nutiseadme ülene ning nad pole nähtavad ka muudest galeriirakendustest. Peitmisel luuakse peidetavasse kausta fail „.nomedia“, mida saad soovi korral kustutada iga korraliku failihalduriga. Palun arvesta, et mõnede nutiseadmete puhul pole võimalik peita kaustu Camera, Screenshots ja Downloads.</string>
+    <string name="faq_1_title">Kuidas saan dsremo galeriist teha selle seadme vaikimisi galeriirakenduse?</string>
+    <string name="exclude_folder_description">Järgnevaga välistad valiku koos alamkaustadega vaid dsremo galeriist. Välistatud kaustu saad hallata seadistustest.</string>
     <string name="wallpaper">Taustapilt</string>
-    <string name="faq_1_text">Esmalt palun otsi oma nutiseadme seadistuste alajaotusest Rakendused hetkel vaikmisi kasutusel olev galeriirakendus. Selle alt leia valik, mille nimi võib olla midagi sellist nagu „Vaikimisi rakendus“. Klõpsi sellel ning vali „Eelmalda vaikeseadistused“. Kui järgmine kord püüad vaadata pilte või videosid, siis avaneb rakenduste valija, kust saad Fossify Galerii määrata vaikimisi kasutatavaks galeriirakenduseks.</string>
-    <string name="full_storage_permission_required">Fossify Galerii vajab kõikide sinu fotode ja videote näitamiseks täisõigusi. Ava Seadistused &gt; Õigused &gt; Fotod ja videod &gt; Luba kõik.</string>
+    <string name="faq_1_text">Esmalt palun otsi oma nutiseadme seadistuste alajaotusest Rakendused hetkel vaikmisi kasutusel olev galeriirakendus. Selle alt leia valik, mille nimi võib olla midagi sellist nagu „Vaikimisi rakendus“. Klõpsi sellel ning vali „Eelmalda vaikeseadistused“. Kui järgmine kord püüad vaadata pilte või videosid, siis avaneb rakenduste valija, kust saad dsremo Galerii määrata vaikimisi kasutatavaks galeriirakenduseks.</string>
+    <string name="full_storage_permission_required">dsremo Galerii vajab kõikide sinu fotode ja videote näitamiseks täisõigusi. Ava Seadistused &gt; Õigused &gt; Fotod ja videod &gt; Luba kõik.</string>
     <string name="playback_speed">Taasesituse kiirus</string>
     <string name="failed_to_load_media">Meedia laadimine ei õnnestunud.</string>
     <string name="media_exceeds_device_capabilities">Meedia ületab selle seadme suutlikkuse.</string>

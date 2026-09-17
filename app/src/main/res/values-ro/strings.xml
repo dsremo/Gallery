@@ -212,7 +212,7 @@
     <string name="faq_17_text">Aceasta a încetat să mai funcționeze din cauza schimbărilor de sistem care au venit odată cu Android 11. Aplicația nu mai poate răsfoi dosare reale, ci se bazează pe așa-numitul MediaStore pentru a prelua informaţiile.</string>
     <string name="faq_18_title">De ce văd reclame în timpul redării video\?</string>
     <string name="faq_18_text">Aplicațiile noastre nu au niciun fel de reclame. Dacă le vedeți în timpul redării video, înseamnă că utilizați un alt player video. Încercați să găsiți playerul video implicit în setările dispozitivului, apoi efectuați o operațiune de \"Curăţare a valorilor implicite\" pentru acesta. Data viitoare când veți apela la o intenție video, veți vedea o fereastră de selectare a aplicației, unde puteți selecta aplicația pe care doriți să o utilizați.</string>
-    <string name="exclude_folder_description">Acest lucru va exclude selecția împreună cu subfolderele sale numai din Galeria Fossify. Puteți gestiona folderele excluse în Setări.</string>
+    <string name="exclude_folder_description">Acest lucru va exclude selecția împreună cu subfolderele sale numai din Galeria dsremo. Puteți gestiona folderele excluse în Setări.</string>
     <string name="excluded">(exclus)</string>
     <string name="editor">Editor</string>
     <string name="all_files">Toate fișierele</string>
@@ -233,11 +233,11 @@
     <string name="import_favorite_paths">Importă favorite</string>
     <string name="paths_imported_successfully">Căi importate cu succes</string>
     <string name="search_all_files">Caută toate fișierele nu doar dosarele de pe ecran</string>
-    <string name="faq_1_title">Cum pot face ca Galeria Fossify să fie galeria implicită a dispozitivului?</string>
+    <string name="faq_1_title">Cum pot face ca Galeria dsremo să fie galeria implicită a dispozitivului?</string>
     <string name="crop">Decupare</string>
     <string name="slide">Glisare</string>
     <string name="hidden_all_files">Trebuie să acorzi aplicației acces la Toate fișierele pentru a vedea fișierele ascunse, altfel nu poate funcționa.</string>
-    <string name="excluded_activity_placeholder">Excluderea dosarelor se va face împreună cu sub-dosarele lor ascunse doar în Fossify Gallery, ele vor fi în continuare vizibile în alte aplicații.\n\nDacă dorești să le ascunzi și de alte aplicații, utilizează funcția Ascundere.</string>
+    <string name="excluded_activity_placeholder">Excluderea dosarelor se va face împreună cu sub-dosarele lor ascunse doar în Gallery, ele vor fi în continuare vizibile în alte aplicații.\n\nDacă dorești să le ascunzi și de alte aplicații, utilizează funcția Ascundere.</string>
     <string name="cant_unhide_folder">Dacă un dosar sau unul dintre dosarele părinte are un punct înaintea numelui său, acesta este ascuns și nu poate fi dezvăluit astfel. Trebuie să elimini punctul redenumindu-l.</string>
-    <string name="full_storage_permission_required">Fossify Gallery are nevoie de acces complet pentru a fișa toate fotografiile și videoclipurile. Accesează Setări &gt; Permisiuni &gt; Fotografii și videoclipuri &gt; Permite toate.</string>
+    <string name="full_storage_permission_required">Gallery are nevoie de acces complet pentru a fișa toate fotografiile și videoclipurile. Accesează Setări &gt; Permisiuni &gt; Fotografii și videoclipuri &gt; Permite toate.</string>
 </resources>

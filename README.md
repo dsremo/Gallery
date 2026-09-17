@@ -1,39 +1,55 @@
-# Fossify Gallery
+# Gallery
 
-<img alt="Logo" src="graphics/icon.webp" width="120" />
+A privacy-focused photo and video gallery for Android — forked from [Fossify Gallery](https://github.com/FossifyOrg/Gallery) with reworked UX and new features.
 
-<a href='https://play.google.com/store/apps/details?id=org.fossify.gallery'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height=80/></a> <a href="https://f-droid.org/en/packages/org.fossify.gallery/"><img src="https://fdroid.gitlab.io/artwork/badge/get-it-on-en.svg" alt="Get it on F-Droid" height=80/></a> <a href="https://apt.izzysoft.de/fdroid/index/apk/org.fossify.gallery"><img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png" alt="Get it on IzzyOnDroid" height=80/></a>
+No ads. No cloud sync. No unnecessary permissions.
 
-Unleash memories, not personal data. Fossify Gallery is the ultimate photo and video app that's as powerful as it is private. No ads, no unnecessary permissions – just a seamless experience tailored for you.
+## What's different from upstream
 
-**🖼️ PHOTO EDITING AT YOUR FINGERTIPS:**  
-Enhance your photos with our basic yet powerful photo editor. Crop, resize, rotate, flip, draw, and apply stunning filters, all without compromising your privacy. Take control of your memories like never before.
+**New features**
 
-**🌐 PRIVACY FIRST, ALWAYS:**  
-Your privacy matters. Ditch the data-hungry giants. Fossify Gallery puts you in control. Strip away EXIF metadata like GPS coordinates and camera details, keeping your memories yours, and yours alone.
+- Private folders — biometric or PIN lock, per-folder
+- Smart albums — auto-grouped (recent, favorites, videos, screenshots)
+- Duplicate detection using perceptual hashing
+- Bulk EXIF location stripping
+- Photo compression tool
+- Storage reclaim advisor — trash / cache / unused HEIC breakdown
+- Trash auto-cleanup with configurable retention
+- HEIC support advisor
+- Settings-wide search
 
-**🔒 SUPERIOR SECURITY:**  
-Lock down your memories with pin, pattern, or fingerprint protection. Secure specific photos, videos, or the entire app – you decide who gets access. Peace of mind, guaranteed.
+**UX rework**
 
-**🔄 RECOVER WITH EASE:**  
-Breathe easy, accidents happen! Fossify Gallery's built-in recycle bin lets you recover deleted photos and videos in seconds. No more lost treasures, just pure relief.
+- Settings restructured into 8 top-level categories, one level deep
+- ~15 obvious-default toggles removed (loop-videos, deep-zoom-on-double-tap, show-highest-quality, etc.)
+- Select-all lives inside the action-bar title as a `☐ / ☑` glyph — no separate icon
+- Back button inside a folder returns to Directories view (was missing upstream)
+- Rotate is two direct icons (left / right), not a submenu
+- Video-player loop is a session button in the player, not a global setting
+- "Show hidden folders" reveals only folders you hid — not `.nomedia` folders from other apps
+- Photo-viewer chrome auto-hide slowed to 6s (was 500ms)
 
-**🎨 YOUR GALLERY, YOUR STYLE:**  
-Customize the look, feel, and functionality to match your style. From UI themes to function buttons, Fossify Gallery gives you the creative freedom you crave.
+## Build
 
-**📷 UNIVERSAL FORMAT FREEDOM:**  
-JPEG, JPEG XL, PNG, MP4, MKV, RAW, SVG, GIF, AVIF, videos, and more – we've got your memories covered, in any format you choose. No restrictions, just limitless possibilities.
+```bash
+./gradlew assembleFossRelease
+```
 
-**✨ MATERIAL DESIGN WITH DYNAMIC THEMES:**  
-Experience the beauty of intuitive material design with dynamic themes. Want more? Dive into custom themes and make your gallery truly unique.
+The APK lands in `app/build/outputs/apk/foss/release/`.
 
-➡️ Explore more Fossify apps: https://www.fossify.org<br>
-➡️ Open-Source Code: https://www.github.com/FossifyOrg<br>
-➡️ Join the community on Reddit: https://www.reddit.com/r/Fossify<br>
-➡️ Connect on Telegram: https://t.me/Fossify
+To sign the release build, put a `keystore.properties` at the repo root:
 
-<div align="center">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/1_en-US.png" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/2_en-US.png" width="30%">
-<img alt="App image" src="fastlane/metadata/android/en-US/images/phoneScreenshots/3_en-US.png" width="30%">
-</div>
+```
+storeFile=/absolute/path/to/your.keystore
+storePassword=...
+keyAlias=...
+keyPassword=...
+```
+
+Omit it and the build proceeds unsigned.
+
+## License
+
+[GPL-3.0](LICENSE) — same as upstream.
+
+Based on [Fossify Gallery](https://github.com/FossifyOrg/Gallery) (GPL-3.0). Modified 2026 by [dsremo](https://github.com/dsremo).

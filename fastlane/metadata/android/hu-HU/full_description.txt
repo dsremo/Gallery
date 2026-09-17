@@ -1,4 +1,4 @@
-Tedd szabaddá az emlékeidet, ne a személyes adataidat. A Fossify Gallery az igazi fotó- és videóalkalmazás, ami pont annyira erőteljes, mint privát. Nincsenek reklámok, nincsenek felesleges engedélyek – csak egy zökkenőmentes, rád szabott élmény.
+Tedd szabaddá az emlékeidet, ne a személyes adataidat. A Gallery az igazi fotó- és videóalkalmazás, ami pont annyira erőteljes, mint privát. Nincsenek reklámok, nincsenek felesleges engedélyek – csak egy zökkenőmentes, rád szabott élmény.
 
 🖼️ FOTÓSZERKESZTÉS KÉZKÖZELBEN:
 Dobd fel a képeidet egyszerű, mégis erőteljes szerkesztőnkkel.
@@ -7,7 +7,7 @@ Vedd kézbe az emlékeid feletti irányítást, mint még soha.
 
 🌐 ELSŐ A MAGÁNÉLET:
 A privát szféra számít. Felejtsd el az adataidra éhes óriásokat.
-A Fossify Gallery a te kezedbe adja az irányítást.
+A Gallery a te kezedbe adja az irányítást.
 Távolítsd el az EXIF metaadatokat, például a GPS-koordinátákat és a kamera adatait, így az emlékeid csak a tieid maradnak.
 
 🔒 KIVÁLÓ BIZTONSÁG:
@@ -17,12 +17,12 @@ Teljes nyugalom, garantáltan.
 
 🔄 EGYSZERŰ HELYREÁLLÍTÁS:
 Ne aggódj, ha baleset történik!
-A Fossify Gallery beépített kukája lehetővé teszi a törölt fotók és videók másodpercek alatti visszaállítását.
+A Gallery beépített kukája lehetővé teszi a törölt fotók és videók másodpercek alatti visszaállítását.
 Nincs több elveszett kincs – csak tiszta megkönnyebbülés.
 
 🎨 A GALÉRIÁD, A STÍLUSOD:
 Szabd testre a megjelenést, a hangulatot és a funkciókat, hogy passzoljanak hozzád.
-A felhasználói felület témáitól kezdve a funkciógombokig – a Fossify Gallery megadja neked a kreatív szabadságot, amire vágysz.
+A felhasználói felület témáitól kezdve a funkciógombokig – a Gallery megadja neked a kreatív szabadságot, amire vágysz.
 
 📷 FORMÁTUMSZABADSÁG:
 JPEG, JPEG XL, PNG, MP4, MKV, RAW, SVG, GIF, videók és még sok más – minden formátumban megőrizzük az emlékeidet.
@@ -32,7 +32,3 @@ Nincsenek korlátok, csak végtelen lehetőségek.
 Élvezd az intuitív Material Design szépségét dinamikus témákkal.
 Többre vágysz? Merülj el az egyedi témák világában, és tedd igazán egyedivé a galériádat.
 
-Fedezz fel még több appot a Fossify-tól: https://www.fossify.org
-Nyílt forrású kód: https://www.github.com/FossifyOrg
-Csatlakozz a Reddit közösséghez: https://www.reddit.com/r/Fossify
-Lépj velünk kapcsolatba Telegram-on: https://t.me/Fossify

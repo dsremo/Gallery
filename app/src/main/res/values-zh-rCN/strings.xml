@@ -215,8 +215,8 @@
     <string name="manage_bottom_actions">管理底部按钮</string>
     <string name="toggle_favorite">收藏/取消收藏</string>
     <string name="toggle_file_visibility">隐藏/取消隐藏文件</string>
-    <string name="faq_1_title">如何将 Fossify 相册设置为本设备的默认相册应用？</string>
-    <string name="faq_1_text">首先请前往本设备的设置页面，在“应用”之类的栏目中找到类似“默认应用”的按钮，点击它，再选择“清除默认应用”。然后在下次你打开图像或者视频时，系统将让您选择使用哪款应用打开，您可以从中选择 Fossify 相册，并将它设置为默认应用。</string>
+    <string name="faq_1_title">如何将 dsremo 相册设置为本设备的默认相册应用？</string>
+    <string name="faq_1_text">首先请前往本设备的设置页面，在“应用”之类的栏目中找到类似“默认应用”的按钮，点击它，再选择“清除默认应用”。然后在下次你打开图像或者视频时，系统将让您选择使用哪款应用打开，您可以从中选择 dsremo 相册，并将它设置为默认应用。</string>
     <string name="faq_2_title">我用密码锁定了本应用，但我忘记密码了。我应该怎么办？</string>
     <string name="faq_2_text">您可以通过两种方式解决此问题。您可以重新安装本应用，也可以在本设备的设置页面中清除本应用的数据。清除本应用的数据将重置本应用的所有设置，但不会删除任何媒体文件。</string>
     <string name="faq_3_title">如何让某个相册始终靠前显示？</string>
@@ -250,7 +250,7 @@
     <string name="faq_17_text">由于 Android 11 对系统进行了调整，此功能也已经失效。本应用无法在 Android 11 中浏览实际的文件夹，它现在必须通过系统的 MediaStore 函数来获取数据。</string>
     <string name="faq_18_title">为什么我在视频播放期间会看到广告？</string>
     <string name="faq_18_text">本应用不存在任何广告。如果您在视频播放期间看到了广告，那么您大概率是通过其他的视频播放器打开了视频。请在本设备的设置页面中找到默认视频播放器，然后再选择“清除默认应用设置”之类的选项。这样在您下次打开视频时，系统将提示您选择您想要的视频播放应用。</string>
-    <string name="full_storage_permission_required">Fossify 图库需要完全访问权限才能显示您的所有照片和视频。前往“设置”&gt;“权限”&gt;“照片和视频”&gt;“全部允许”。</string>
+    <string name="full_storage_permission_required">dsremo 图库需要完全访问权限才能显示您的所有照片和视频。前往“设置”&gt;“权限”&gt;“照片和视频”&gt;“全部允许”。</string>
     <string name="playback_speed">播放速度</string>
     <string name="failed_to_load_media">加载媒体失败。</string>
     <string name="unsupported_format">不支持的格式。</string>

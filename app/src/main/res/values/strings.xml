@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_launcher_name">Gallery</string>
+
+    <string name="my_website">https://github.com/dsremo/Gallery</string>
+    <string name="donate_url">https://github.com/dsremo/Gallery</string>
+    <string name="my_email"></string>
+    <string name="my_fake_email"></string>
+
+    <string name="dsremo_about_title">Gallery</string>
+    <string name="dsremo_about_body">Version %1$s\n\nBased on Fossify Gallery (GPL-3.0). Modified 2026 by dsremo.\n\nSource code: https://github.com/dsremo/Gallery\nLicense: GNU GPL v3.0</string>
+    <string name="dsremo_about_source">View source code</string>
+    <string name="dsremo_about_license">License</string>
+    <string name="dsremo_source_url">https://github.com/dsremo/Gallery</string>
+    <string name="dsremo_license_url">https://www.gnu.org/licenses/gpl-3.0.en.html</string>
+    <string name="dsremo_find_duplicates">Find duplicate photos</string>
+    <string name="dsremo_search">Search photos</string>
+    <string name="dsremo_strip_location">Strip location from all photos</string>
+    <string name="dsremo_compress_photos">Compress photos</string>
     <string name="edit">Edit</string>
     <string name="open_camera">Open camera</string>
     <string name="hidden">(hidden)</string>
@@ -38,7 +54,7 @@
         <item quantity="one">Are you sure you want to restore %d file?</item>
         <item quantity="other">Are you sure you want to restore %d files?</item>
     </plurals>
-    <string name="full_storage_permission_required">Fossify Gallery needs full access to display all your photos and videos. Go to Settings > Permissions > Photos and videos > Allow all.</string>
+    <string name="full_storage_permission_required">Gallery needs full access to display all your photos and videos. Go to Settings > Permissions > Photos and videos > Allow all.</string>
 
     <!-- Filter -->
     <string name="filter_media">Filter media</string>
@@ -53,9 +69,9 @@
 
     <!-- Hide / Exclude -->
     <string name="hide_folder_description">This function hides the folder by adding a \'.nomedia\' file into it, it will hide all subfolders too. You can see them by toggling the \'Show hidden items\' option in Settings. Continue?</string>
-    <string name="exclude_folder_description">This will exclude the selection together with its subfolders from Fossify Gallery only. You can manage excluded folders in Settings.</string>
+    <string name="exclude_folder_description">This will exclude the selection together with its subfolders from Gallery only. You can manage excluded folders in Settings.</string>
     <string name="exclude_folder_parent">Exclude a parent instead?</string>
-    <string name="excluded_activity_placeholder">Excluding folders will make them together with their subfolders hidden just in Fossify Gallery, they will still be visible in other applications.\n\nIf you want to hide them from other apps too, use the Hide function.</string>
+    <string name="excluded_activity_placeholder">Excluding folders will make them together with their subfolders hidden just in Gallery, they will still be visible in other applications.\n\nIf you want to hide them from other apps too, use the Hide function.</string>
     <string name="hidden_folders">Hidden folders</string>
     <string name="manage_hidden_folders">Manage hidden folders</string>
     <string name="hidden_folders_placeholder">Seems like you don\'t have any folders hidden with a \".nomedia\" file.</string>
@@ -262,9 +278,9 @@
     <string name="video_no_sound">This video has no audio</string>
 
     <!-- FAQ -->
-    <string name="faq_1_title">How can I make Fossify Gallery the default device gallery?</string>
+    <string name="faq_1_title">How can I make Gallery the default device gallery?</string>
     <string name="faq_1_text">First you have to find the currently default gallery in the Apps section of your device settings, look for a button that says something like \"Open by default\", click on it, then select \"Clear defaults\".
-        The next time you will try opening an image or video you should see an app picker, where you can select Fossify Gallery and make it the default app.</string>
+        The next time you will try opening an image or video you should see an app picker, where you can select Gallery and make it the default app.</string>
     <string name="faq_2_title">I locked the app with a password, but I forgot it. What can I do?</string>
     <string name="faq_2_text">You can solve it in 2 ways. You can either reinstall the app, or find the app in your device settings and select \"Clear data\". It will reset all your settings, it will not remove any media files.</string>
     <string name="faq_3_title">How can I make an album always appear at the top?</string>
@@ -272,7 +288,7 @@
     <string name="faq_4_title">How can I fast forward videos?</string>
     <string name="faq_4_text">You can do it by double tapping the side of the screen, or tapping the current or max duration texts near the seekbar. If you enable opening videos on a separate screen in the app settings, you can use horizontal gestures too.</string>
     <string name="faq_5_title">What is the difference between hiding and excluding a folder?</string>
-    <string name="faq_5_text">Exclude prevents displaying the folder only in Fossify Gallery, while Hide works system-wise and it hides the folder from other galleries too. It works by creating an empty \".nomedia\" file in the given folder, which you can then remove with any file manager too. Note that some devices do not allow hiding folders like Camera, Screenshots and Downloads.</string>
+    <string name="faq_5_text">Exclude prevents displaying the folder only in Gallery, while Hide works system-wise and it hides the folder from other galleries too. It works by creating an empty \".nomedia\" file in the given folder, which you can then remove with any file manager too. Note that some devices do not allow hiding folders like Camera, Screenshots and Downloads.</string>
     <string name="faq_6_title">Why do folders with music cover art or stickers show up?</string>
     <string name="faq_6_text">It can happen that you will see some unusual albums show up. You can easily exclude them by long pressing them and selecting Exclude. In the next dialog you can then select the parent folder, chances are it will prevent the other related albums showing up too.</string>
     <string name="faq_7_title">A folder with images isn\'t showing up, or it doesn\'t show all items.  What can I do?</string>
@@ -299,6 +315,40 @@
     <string name="faq_17_text">That stopped working due to the system changes that came with Android 11 too, the app cannot browse real folders anymore, it relies on the so called MediaStore at fetching data.</string>
     <string name="faq_18_title">Why do I see ads during video playback?</string>
     <string name="faq_18_text">Our apps have no ads whatsoever. If you see them during video playback, you must be using some other apps video player. Try finding your default video player in the device settings, then do a \"Clear defaults\" on it. The next time you invoke some video intent you will see an app picker prompt, where you can select what app you want to use.</string>
+    <string name="dsremo_strip_exif_on_share">Strip GPS/EXIF metadata when sharing photos</string>
+    <string name="dsremo_show_smart_albums">Show smart albums (Today, Yesterday, This Week…)</string>
+    <string name="dsremo_smart_album_today">Today</string>
+    <string name="dsremo_smart_album_yesterday">Yesterday</string>
+    <string name="dsremo_smart_album_this_week">This Week</string>
+    <string name="dsremo_smart_album_this_month">This Month</string>
+    <string name="dsremo_smart_album_earlier">Earlier</string>
+    <string name="dsremo_mark_sensitive">Mark folder sensitive</string>
+    <string name="dsremo_unmark_sensitive">Unmark folder sensitive</string>
+    <string name="dsremo_blur_sensitive_thumbnails">Blur thumbnails for folders marked sensitive</string>
+    <string name="dsremo_sensitive_folder_prompt_title">Mark this folder sensitive?</string>
+    <string name="dsremo_sensitive_folder_prompt_message">The folder \"%1$s\" looks like it may contain sensitive documents (Aadhaar, UIDAI, PAN). Mark it sensitive to blur its thumbnail on the folder grid?</string>
+    <string name="dsremo_yes_mark_sensitive">Mark sensitive</string>
+    <string name="dsremo_no_thanks">Not now</string>
+    <string name="dsremo_view_options">View options</string>
+    <string name="dsremo_selected_of_count">☐ %1$d selected of %2$d</string>
+    <string name="dsremo_selected_of_count_all">☑ %1$d selected of %2$d</string>
+    <string name="dsremo_default_open_folder">Open this folder on launch</string>
+    <string name="dsremo_unset_default_open_folder">Do not open this folder on launch</string>
+    <string name="dsremo_show_hidden_temporarily_short">Show hidden folders</string>
+    <string name="dsremo_hide_hidden_temporarily_short">Stop showing hidden folders</string>
+    <string name="dsremo_all_files_access_title">Allow full storage access?</string>
+    <string name="dsremo_all_files_access_rationale">To let you delete photos or move them to the recycle bin, Gallery needs \"All files access.\" Without it, the delete action will silently fail. Tap Settings, then enable \"Allow access to manage all files\" for Gallery.</string>
+    <string name="dsremo_delete_failed_title">Delete failed</string>
+    <string name="dsremo_delete_failed_rationale">Gallery needs full storage access to delete these items. Open Settings and enable \"Allow access to manage all files.\"</string>
+    <string name="dsremo_user_hidden_folders">Folders you hid</string>
+    <string name="dsremo_user_hidden_folders_summary">Long-press any folder → Hide to move it here. Tap Unhide to bring it back.</string>
+    <string name="dsremo_show_system_hidden">Show system cache folders</string>
+    <string name="dsremo_show_system_hidden_summary">Reveal .thumbnails, .trashed, and other Android cache folders. Off by default.</string>
+    <string name="dsremo_private_subtitle">Folders you locked with a password or PIN</string>
+    <string name="dsremo_private_explainer_title">How privacy works</string>
+    <string name="dsremo_private_explainer">Private folders use biometric or PIN protection. Long-press any folder → Lock to move it here.</string>
+    <string name="dsremo_open_recycle_bin_short">Recycled</string>
+    <string name="dsremo_unhide_folder_short">Unhide</string>
     <!--
         Haven't found some strings? There's more at
         https://github.com/FossifyOrg/Commons/tree/master/commons/src/main/res

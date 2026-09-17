@@ -227,8 +227,8 @@
         <item quantity="few">Да ли сте сигурни да желите да вратите %d фајла?</item>
         <item quantity="other">Да ли сте сигурни да желите да вратите %d фајлова?</item>
     </plurals>
-    <string name="exclude_folder_description">Ово ће изузети одабир и његове подфасцикле само из Fossify Gallery-а. Изузетим фасциклама можете управљати у Подешавањима.</string>
-    <string name="full_storage_permission_required">Fossify Gallery мора да има потпун приступ да би приказала све ваше слике и видео снимке. Идите у Подешавања &gt; Дозволе &gt; Слике и видео снимци &gt; Дозволи све.</string>
+    <string name="exclude_folder_description">Ово ће изузети одабир и његове подфасцикле само из Gallery-а. Изузетим фасциклама можете управљати у Подешавањима.</string>
+    <string name="full_storage_permission_required">Gallery мора да има потпун приступ да би приказала све ваше слике и видео снимке. Идите у Подешавања &gt; Дозволе &gt; Слике и видео снимци &gt; Дозволи све.</string>
     <string name="paths_imported_successfully">Путање су успешно увезене</string>
     <string name="no_animation">Нема</string>
     <string name="media_exceeds_device_capabilities">Овај фајл премашује могућности уређаја.</string>

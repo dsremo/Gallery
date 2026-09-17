@@ -232,7 +232,7 @@
     <string name="faq_18_title">動画の再生中に広告が表示されるのはなぜですか？</string>
     <string name="faq_18_text">私たちのアプリには広告は一切表示されません。動画の再生中に広告が表示される場合、他のアプリの動画プレーヤーを使用している可能性があります。端末の設定でデフォルトの動画プレーヤーを見つけて、「デフォルトの設定をクリア」（あるいは「設定を消去」や「デフォルトをクリア」といった表記のもの）を実行してみてください。次回以降、何らかの動画を開こうとすると、使用するアプリを選択するアプリ選択ダイアログが表示されます。</string>
     <string name="resize_factor_error">値は10から90までの間を指定してください</string>
-    <string name="full_storage_permission_required">Fossifyギャラリーは、全ての写真と動画を表示するために、完全なアクセスを必要としています。設定から「権限」、「画像と写真」を開き、全て許可を選択してください。</string>
+    <string name="full_storage_permission_required">dsremoギャラリーは、全ての写真と動画を表示するために、完全なアクセスを必要としています。設定から「権限」、「画像と写真」を開き、全て許可を選択してください。</string>
     <string name="resize_factor">倍率を変更</string>
     <string name="resize_multiple_images">複数の画像のサイズを変更</string>
     <string name="failed_to_load_media">メディアを読み込めませんでした。</string>
@@ -243,7 +243,7 @@
     </plurals>
     <string name="images_resized_successfully">画像のサイズを変更しました</string>
     <string name="wallpaper">壁紙</string>
-    <string name="exclude_folder_description">選択したフォルダーとその子フォルダーをFossifyギャラリーから除外します。除外したフォルダーは設定画面で管理できます。</string>
+    <string name="exclude_folder_description">選択したフォルダーとその子フォルダーをdsremoギャラリーから除外します。除外したフォルダーは設定画面で管理できます。</string>
     <plurals name="restore_confirmation">
         <item quantity="other">本当に %d ファイルを復元しますか?</item>
     </plurals>

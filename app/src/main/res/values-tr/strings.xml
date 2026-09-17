@@ -43,9 +43,9 @@
     <string name="no_media_with_filters">Seçilen süzgeçlerle hiçbir medya dosyası bulunamadı.</string>
     <string name="change_filters_underlined"><u>Süzgeçleri değiştir</u></string>
     <string name="hide_folder_description">Bu işlev, klasöre bir \'.nomedia\' dosyası ekleyerek gizler, tüm alt klasörleri de gizler. Ayarlar\'dan \'Gizli ögeleri göster\' seçeneğini değiştirerek onları görebilirsiniz. Devam edilsin mi\?</string>
-    <string name="exclude_folder_description">Bu, alt klasörleriyle birlikte seçimi yalnızca Fossify Galeriden hariç tutacaktır. Hariç tutulan klasörleri Ayarlar\'dan yönetebilirsiniz.</string>
+    <string name="exclude_folder_description">Bu, alt klasörleriyle birlikte seçimi yalnızca dsremo Galeriden hariç tutacaktır. Hariç tutulan klasörleri Ayarlar\'dan yönetebilirsiniz.</string>
     <string name="exclude_folder_parent">Bunun yerine bir üst dizin hariç tutulsun mu\?</string>
-    <string name="excluded_activity_placeholder">Klasörleri hariç tutmak, onları yalnızca Fossify Galeri\'de gizlenen alt klasörleriyle bir araya getirecek, diğer uygulamalarda görünmeye devam edecektir.
+    <string name="excluded_activity_placeholder">Klasörleri hariç tutmak, onları yalnızca dsremo Galeri\'de gizlenen alt klasörleriyle bir araya getirecek, diğer uygulamalarda görünmeye devam edecektir.
 \n
 \nBunları diğer uygulamalardan gizlemek istiyorsanız, Gizle işlevini kullanın.</string>
     <string name="hidden_folders">Gizli klasörler</string>
@@ -216,8 +216,8 @@
     <string name="manage_bottom_actions">Görünür alt eylemleri yönet</string>
     <string name="toggle_favorite">Favoriyi göster/gizle</string>
     <string name="toggle_file_visibility">Dosya görünürlüğünü aç/kapat</string>
-    <string name="faq_1_title">Fossify Galeri\'yi nasıl öntanımlı aygıt galerisi yapabilirim?</string>
-    <string name="faq_1_text">Önce aygıt ayarlarınızın Uygulamalar bölümünde öntanımlı galeriyi bulmanız, \"Öntanımlı olarak aç\" gibi bir şey söyleyen bir düğme aramanız, üzerine tıklamanız ve ardından \"Öntanımlıları Temizle\" seçeneğini seçmeniz gerekir. Gelecek sefer video veya resim açmayı denediğinizde, Fossify Galeri\'yi seçip öntanımlı uygulama haline getirebileceğiniz bir uygulama seçicisini görmelisiniz.</string>
+    <string name="faq_1_title">dsremo Galeri\'yi nasıl öntanımlı aygıt galerisi yapabilirim?</string>
+    <string name="faq_1_text">Önce aygıt ayarlarınızın Uygulamalar bölümünde öntanımlı galeriyi bulmanız, \"Öntanımlı olarak aç\" gibi bir şey söyleyen bir düğme aramanız, üzerine tıklamanız ve ardından \"Öntanımlıları Temizle\" seçeneğini seçmeniz gerekir. Gelecek sefer video veya resim açmayı denediğinizde, dsremo Galeri\'yi seçip öntanımlı uygulama haline getirebileceğiniz bir uygulama seçicisini görmelisiniz.</string>
     <string name="faq_2_title">Uygulamayı bir şifre ile kilitledim ama unuttum. Ne yapabilirim\?</string>
     <string name="faq_2_text">Bunu 2 şekilde çözebilirsiniz. Uygulamayı yeniden kurabilir veya uygulamayı aygıt ayarlarınızdan bulabilir ve \"Verileri temizle\" seçeneğini seçebilirsiniz. Bu, tüm ayarlarınızı sıfırlayacak, herhangi bir medya dosyasını kaldırmayacaktır.</string>
     <string name="faq_3_title">Bir albümün her zaman en üstte görünmesini nasıl sağlayabilirim\?</string>
@@ -225,7 +225,7 @@
     <string name="faq_4_title">Videoları nasıl hızlıca ileri sarabilirim\?</string>
     <string name="faq_4_text">Ekranın yan tarafına iki kez dokunarak veya arama çubuğunun yanındaki geçerli veya maksimum süre metinlerine dokunarak bunu yapabilirsiniz. Videoları uygulama ayarlarından ayrı bir ekranda açmayı etkinleştirirseniz yatay hareketleri de kullanabilirsiniz.</string>
     <string name="faq_5_title">Klasörün gizlenmesi ve hariç tutulması arasındaki fark nedir\?</string>
-    <string name="faq_5_text">Hariç tut, klasörü yalnızca Fossify Galeri\'de görüntülemeyi engellerken, Gizle sistem genelinde çalışır ve klasörü diğer galerilerden de gizler. Verilen klasörde boş bir \".nomedia\" dosyası oluşturarak çalışır, daha sonra herhangi bir dosya yöneticisi ile kaldırabilirsiniz. Bazı aygıtların Kamera, Ekran Görüntüleri ve İndirilenler gibi klasörlerin gizlenmesine izin vermediğini unutmayın.</string>
+    <string name="faq_5_text">Hariç tut, klasörü yalnızca dsremo Galeri\'de görüntülemeyi engellerken, Gizle sistem genelinde çalışır ve klasörü diğer galerilerden de gizler. Verilen klasörde boş bir \".nomedia\" dosyası oluşturarak çalışır, daha sonra herhangi bir dosya yöneticisi ile kaldırabilirsiniz. Bazı aygıtların Kamera, Ekran Görüntüleri ve İndirilenler gibi klasörlerin gizlenmesine izin vermediğini unutmayın.</string>
     <string name="faq_6_title">Neden albüm resimlerini içeren klasörler görünüyor\?</string>
     <string name="faq_6_text">Bazı olağandışı albümlerin ortaya çıktığını göreceksiniz. Onları uzun süre basarak ve Hariç tut\'u seçerek kolayca hariç tutabilirsiniz. Bir sonraki iletişim kutusunda, üst klasörü seçebilirsiniz, ancak diğer ilgili albümlerin de gösterilmesini önleyecektir.</string>
     <string name="faq_7_title">Resimler içeren bir klasör görünmüyor, ne yapabilirim\?</string>
@@ -251,7 +251,7 @@
     <string name="faq_17_text">Bu, Android 11 ile birlikte gelen sistem değişiklikleri nedeniyle çalışmayı durdurdu, uygulama artık gerçek klasörlere göz atamıyor, verileri almak için MediaStore kullanıyor.</string>
     <string name="faq_18_title">Video oynatılırken neden reklam görüyorum\?</string>
     <string name="faq_18_text">Uygulamalarımızda hiçbir şekilde reklam yoktur. Video oynatılırken reklam görüyorsanız, başka bir uygulamanın video oynatıcısını kullanıyor olmalısınız. Aygıt ayarlarında öntanımlı video oynatıcınızı bulmayı deneyin, ardından \"Öntanımlıları temizle\" yapın. Bir dahaki sefere video oynatmayı istediğinizde, kullanmak istediğiniz uygulamayı seçebileceğiniz bir uygulama seçici istemi göreceksiniz.</string>
-    <string name="full_storage_permission_required">Fossify Galeri tüm fotoğraf ve videolarınızı görüntülemek için tam erişime ihtiyaç duyar. Ayarlar &gt; İzinler &gt; Fotoğraf ve videolar &gt; Tümüne izin ver bölümüne gidin.</string>
+    <string name="full_storage_permission_required">dsremo Galeri tüm fotoğraf ve videolarınızı görüntülemek için tam erişime ihtiyaç duyar. Ayarlar &gt; İzinler &gt; Fotoğraf ve videolar &gt; Tümüne izin ver bölümüne gidin.</string>
     <string name="playback_speed">Oynatma hızı</string>
     <string name="failed_to_load_media">Medya yüklenemedi.</string>
     <string name="file_is_malformed_or_corrupted">Dosya hatalı biçimlendirilmiş veya bozuk.</string>

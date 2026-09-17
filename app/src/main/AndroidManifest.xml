@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+
     <!-- override the android:maxSdkVersion="28" from PhotoEditorSDK with some higher number -->
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
@@ -43,7 +46,7 @@
 
     <application
         android:name="org.fossify.gallery.App"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:appCategory="image"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_launcher_name"
@@ -51,7 +54,8 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:label">
+        tools:replace="android:label,android:allowBackup"
+        android:usesCleartextTraffic="false">
 
         <activity
             android:name=".activities.SplashActivity"
@@ -84,6 +88,20 @@
                 <data android:mimeType="video/*" />
                 <data android:mimeType="vnd.android.cursor.dir/image" />
                 <data android:mimeType="vnd.android.cursor.dir/video" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="video/*" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+                <data android:mimeType="video/*" />
             </intent-filter>
         </activity>
 
@@ -155,6 +173,62 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".activities.settings.SettingsAppearanceActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="Appearance &amp; display"
+            android:parentActivityName=".activities.SettingsActivity" />
+
+        <activity
+            android:name=".activities.settings.SettingsGridActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="Thumbnails &amp; grid"
+            android:parentActivityName=".activities.SettingsActivity" />
+
+        <activity
+            android:name=".activities.settings.SettingsVideoActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="Video player"
+            android:parentActivityName=".activities.SettingsActivity" />
+
+        <activity
+            android:name=".activities.settings.SettingsPrivacyActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="Privacy &amp; security"
+            android:parentActivityName=".activities.SettingsActivity" />
+
+        <activity
+            android:name=".activities.settings.SettingsBackupActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="Backup &amp; sync"
+            android:parentActivityName=".activities.SettingsActivity" />
+
+        <activity
+            android:name=".activities.settings.SettingsRecycleBinActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="@string/recycle_bin"
+            android:parentActivityName=".activities.SettingsActivity" />
+
+        <activity
+            android:name=".activities.settings.SettingsAdvancedActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="Advanced"
+            android:parentActivityName=".activities.SettingsActivity" />
+
+        <activity
+            android:name=".activities.settings.SettingsAboutActivity"
+            android:configChanges="orientation"
+            android:exported="false"
+            android:label="About"
+            android:parentActivityName=".activities.SettingsActivity" />
 
         <activity
             android:name=".activities.PhotoVideoActivity"
@@ -599,5 +673,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
+
     </application>
 </manifest>

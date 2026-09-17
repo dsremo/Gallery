@@ -202,7 +202,7 @@
     <string name="manage_bottom_actions">Quản lý những hành động dưới cùng</string>
     <string name="toggle_favorite">Thích/Bỏ thích</string>
     <string name="toggle_file_visibility">Ẩn/Bỏ ẩn</string>
-    <string name="faq_1_text">Trước tiên, bạn phải tìm thư viện mặc định hiện tại trong phần Ứng dụng trong cài đặt thiết bị của mình, tìm nút có nội dung như \"Mở theo mặc định\", nhấp vào nút đó, sau đó chọn \"Xóa mặc định\". Lần tới khi mở hình ảnh hoặc video, bạn sẽ thấy bộ chọn ứng dụng, nơi bạn có thể chọn Fossify Gallery và đặt nó làm ứng dụng mặc định.</string>
+    <string name="faq_1_text">Trước tiên, bạn phải tìm thư viện mặc định hiện tại trong phần Ứng dụng trong cài đặt thiết bị của mình, tìm nút có nội dung như \"Mở theo mặc định\", nhấp vào nút đó, sau đó chọn \"Xóa mặc định\". Lần tới khi mở hình ảnh hoặc video, bạn sẽ thấy bộ chọn ứng dụng, nơi bạn có thể chọn Gallery và đặt nó làm ứng dụng mặc định.</string>
     <string name="faq_2_title">Làm sao khi khóa ứng dụng nhưng quên mật khẩu?</string>
     <string name="faq_2_text">Bạn có thể giải quyết theo 2 cách. Cài đặt lại ứng dụng hoặc tìm ứng dụng trong cài đặt thiết bị của bạn và chọn \"Xóa dữ liệu\". Điều này sẽ thiết lập lại tất cả các cài đặt của bạn nhưng không xóa bất kỳ tệp phương tiện nào.</string>
     <string name="faq_3_title">Làm sao để một album luôn xuất hiện ở đầu?</string>
@@ -229,13 +229,13 @@
     <string name="faq_15_text">Bộ nhớ cache ứng dụng có thể cần 250MB nhằm đảm bảo tải hình ảnh nhanh hơn. Nếu app chiếm nhiều dung lượng hơn, rất có thể là do bạn có nhiều mục trong Thùng rác. Những tệp đó được tính vào dung lượng ứng dụng. Bạn có thể xóa tất cả tệp trong Thùng rác. Mọi tệp trong Thùng rác sẽ tự động bị xóa sau 30 ngày.</string>
     <string name="faq_16_text">Kể từ Android 11, bạn không thể ẩn hoặc hiện các tệp hoặc thư mục nữa, bạn cũng không thể nhìn thấy những tệp hoặc thư mục bị ẩn trong ứng dụng thư viện. Bạn sẽ phải sử dụng một số trình quản lý tệp cho điều đó.</string>
     <string name="force_landscape_reverse">Chiều ngang (đảo ngược)</string>
-    <string name="full_storage_permission_required">Fossify Gallery cần toàn quyền truy cập để hiển thị tất cả ảnh và video của bạn. Vào Cài đặt → Quyền → Ảnh và video → Cho phép tất cả.</string>
-    <string name="excluded_activity_placeholder">Việc bỏ qua các thư mục sẽ khiến chúng cùng với các thư mục con bị ẩn trong Fossify Gallery, nhưng vẫn sẽ hiển thị trong các ứng dụng khác.\n\nNếu bạn muốn ẩn chúng khỏi các ứng dụng khác nữa, hãy sử dụng chức năng Ẩn (Hide).</string>
+    <string name="full_storage_permission_required">Gallery cần toàn quyền truy cập để hiển thị tất cả ảnh và video của bạn. Vào Cài đặt → Quyền → Ảnh và video → Cho phép tất cả.</string>
+    <string name="excluded_activity_placeholder">Việc bỏ qua các thư mục sẽ khiến chúng cùng với các thư mục con bị ẩn trong Gallery, nhưng vẫn sẽ hiển thị trong các ứng dụng khác.\n\nNếu bạn muốn ẩn chúng khỏi các ứng dụng khác nữa, hãy sử dụng chức năng Ẩn (Hide).</string>
     <plurals name="restore_confirmation">
         <item quantity="other">Bạn có chắc muốn khôi phục %d tệp?</item>
     </plurals>
     <string name="svgs">Ảnh SVG</string>
-    <string name="exclude_folder_description">Bỏ qua những thư mục đã chọn cùng với các thư mục con của chúng trong Fossify Gallery. Bạn có thể quản lý thư mục đã bỏ qua trong phần Cài đặt.</string>
+    <string name="exclude_folder_description">Bỏ qua những thư mục đã chọn cùng với các thư mục con của chúng trong Gallery. Bạn có thể quản lý thư mục đã bỏ qua trong phần Cài đặt.</string>
     <string name="cant_unhide_folder">Nếu một thư mục hoặc một trong các thư mục mẹ của nó có dấu chấm ở đầu tên, thì nó sẽ bị ẩn và không thể hiện lại bằng cách này. Bạn cần đổi tên để xóa dấu chấm đi.</string>
     <string name="overwrite_original">Ghi đè tệp gốc</string>
     <string name="keep_screen_on_fullscreen_photos">Giữ màn hình luôn sáng</string>
@@ -249,9 +249,9 @@
     <string name="file_is_malformed_or_corrupted">Tệp không hợp lệ hoặc đã bị hỏng.</string>
     <string name="media_exceeds_device_capabilities">Thiết bị không hỗ trợ tệp phương tiện này.</string>
     <string name="unsupported_format">Định dạng không được hỗ trợ.</string>
-    <string name="faq_1_title">Làm sao để đặt Fossify Gallery làm ứng dụng xem ảnh mặc định?</string>
+    <string name="faq_1_title">Làm sao để đặt Gallery làm ứng dụng xem ảnh mặc định?</string>
     <string name="faq_4_text">Bạn có thể nhấn đúp vào cạnh màn hình hoặc nhấn vào thời lượng hiện tại hoặc tối đa gần thanh tua. Nếu bạn bật tùy chọn mở video trên màn hình riêng trong phần cài đặt ứng dụng, bạn cũng có thể sử dụng thao tác vuốt ngang.</string>
-    <string name="faq_5_text">Bỏ qua chỉ ngăn thư mục hiển thị trong Fossify Gallery, trong khi Ẩn hoạt động trên toàn hệ thống và ẩn thư mục khỏi các app thư viện khác. Chức năng này hoạt động bằng cách tạo một tệp \".nomedia\" trống trong thư mục được chọn, mà bạn có thể xóa bằng bất kỳ trình quản lý tệp nào. Lưu ý rằng một số thiết bị không cho phép ẩn các thư mục như Camera, Ảnh chụp màn hình và Tải xuống.</string>
+    <string name="faq_5_text">Bỏ qua chỉ ngăn thư mục hiển thị trong Gallery, trong khi Ẩn hoạt động trên toàn hệ thống và ẩn thư mục khỏi các app thư viện khác. Chức năng này hoạt động bằng cách tạo một tệp \".nomedia\" trống trong thư mục được chọn, mà bạn có thể xóa bằng bất kỳ trình quản lý tệp nào. Lưu ý rằng một số thiết bị không cho phép ẩn các thư mục như Camera, Ảnh chụp màn hình và Tải xuống.</string>
     <string name="faq_16_title">Điều gì sẽ xảy ra với tệp và thư mục bị ẩn? Tại sao tôi không thể thấy các mục đã ẩn nữa?</string>
     <string name="faq_16_text_extra">Hoặc bạn cũng có thể cấp quyền “Truy cập tất cả tệp” cho ứng dụng thư viện này trong phần Cài đặt thiết bị. Việc này sẽ cho phép hiển thị các mục ẩn và giúp thao tác với tệp ổn định hơn.</string>
     <string name="faq_17_title">Tại sao tôi không thể thêm các thư mục bị thiếu nữa?</string>

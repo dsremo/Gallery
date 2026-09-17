@@ -42,9 +42,9 @@
     <string name="no_media_with_filters">Nessun file trovato con il filtro selezionato.</string>
     <string name="change_filters_underlined"><u>Cambia filtro</u></string>
     <string name="hide_folder_description">Questa funzione nasconde la cartella aggiungendo un file .nomedia all\'interno, nasconderà anche tutte le sottocartelle. Si possono vedere attivando l\'opzione «Mostra cartelle nascoste» nelle impostazioni. Continuare\?</string>
-    <string name="exclude_folder_description">In questo modo la selezione e le sue sottocartelle saranno escluse solo da Galleria Fossify. È possibile gestire le cartelle escluse nelle impostazioni.</string>
+    <string name="exclude_folder_description">In questo modo la selezione e le sue sottocartelle saranno escluse solo da Galleria dsremo. È possibile gestire le cartelle escluse nelle impostazioni.</string>
     <string name="exclude_folder_parent">Vuoi invece escluderne una superiore\?</string>
-    <string name="excluded_activity_placeholder">L\'esclusione delle cartelle le renderà nascoste insieme alle loro sottocartelle solo in Galleria Fossify, mentre saranno ancora visibili in altre applicazioni.
+    <string name="excluded_activity_placeholder">L\'esclusione delle cartelle le renderà nascoste insieme alle loro sottocartelle solo in Galleria dsremo, mentre saranno ancora visibili in altre applicazioni.
 \n
 \nSe desideri nasconderle anche da altre applicazioni, utilizza la funzione Nascondi.</string>
     <string name="hidden_folders">Cartelle nascoste</string>
@@ -215,8 +215,8 @@
     <string name="manage_bottom_actions">Gestisci la visibilità delle azioni</string>
     <string name="toggle_favorite">Attiva/disattiva preferito</string>
     <string name="toggle_file_visibility">Attiva / disattiva la visibilità dei file</string>
-    <string name="faq_1_title">Come posso rendere Galleria Fossify la galleria predefinita del dispositivo?</string>
-    <string name="faq_1_text">Per prima cosa è necessario trovare la galleria attualmente predefinita nella sezione Applicazioni delle impostazioni del dispositivo, cercare un pulsante che dica qualcosa come \"Apri per impostazione predefinita\", fare clic su di esso, quindi selezionare \"Cancella impostazioni predefinite\". La prossima volta che proverai ad aprire un\'immagine o un video dovresti vedere un selettore di app, dove potrai selezionare Galleria Fossify e renderla l\'app predefinita.</string>
+    <string name="faq_1_title">Come posso rendere Galleria dsremo la galleria predefinita del dispositivo?</string>
+    <string name="faq_1_text">Per prima cosa è necessario trovare la galleria attualmente predefinita nella sezione Applicazioni delle impostazioni del dispositivo, cercare un pulsante che dica qualcosa come \"Apri per impostazione predefinita\", fare clic su di esso, quindi selezionare \"Cancella impostazioni predefinite\". La prossima volta che proverai ad aprire un\'immagine o un video dovresti vedere un selettore di app, dove potrai selezionare Galleria dsremo e renderla l\'app predefinita.</string>
     <string name="faq_2_title">Ho bloccato l\'app con una password, ma l\'ho dimenticata. Cosa posso fare\?</string>
     <string name="faq_2_text">Si può risolvere in due modi: reinstallare l\'app, oppure trovare l\'app nelle impostazioni del dispositivo e seleziona «Cancella dati». Tutte le impostazioni verranno ripristinate, nessun file verrà rimosso.</string>
     <string name="faq_3_title">Come posso fare apparire un album sempre in cima\?</string>
@@ -224,7 +224,7 @@
     <string name="faq_4_title">Come avanzo velocemente nei video\?</string>
     <string name="faq_4_text">Puoi farlo con un doppio tocco del lato dello schermo o toccando i testi di durata attuale o massima vicino alla barra. Se attivi l\'apertura di video su uno schermo separato nelle impostazioni, puoi anche usare i gesti orizzontali.</string>
     <string name="faq_5_title">Che differenza c\'è tra nascondere ed escludere una cartella\?</string>
-    <string name="faq_5_text">Escludi impedisce la visualizzazione della cartella solo nella Galleria Fossify, mentre Nascondi funziona a livello di sistema e nasconde la cartella anche dalle altre gallerie. Funziona creando un file \".nomedia\" vuoto nella cartella indicata, che può essere rimosso con qualsiasi gestore di file. Nota che alcuni dispositivi non consentono di nascondere cartelle come Fotocamera, Screenshot e Download.</string>
+    <string name="faq_5_text">Escludi impedisce la visualizzazione della cartella solo nella Galleria dsremo, mentre Nascondi funziona a livello di sistema e nasconde la cartella anche dalle altre gallerie. Funziona creando un file \".nomedia\" vuoto nella cartella indicata, che può essere rimosso con qualsiasi gestore di file. Nota che alcuni dispositivi non consentono di nascondere cartelle come Fotocamera, Screenshot e Download.</string>
     <string name="faq_6_title">Perchè vengono mostrate cartelle con copertine o adesivi di musica\?</string>
     <string name="faq_6_text">Può succedere che si vedano apparire alcuni album insoliti. Si possono escluderli facilmente toccandoli a lungo e selezionando Escludi. Nella finestra successiva si possono quindi selezionare la cartella superiore, con la possibilità di impedire la visualizzazione anche di altri album correlati.</string>
     <string name="faq_7_title">Una cartella con immagini non viene mostrata, cosa posso fare\?</string>
@@ -252,7 +252,7 @@
     <string name="faq_18_text">Le nostre applicazioni non hanno alcun tipo di pubblicità. Se li vedi durante la riproduzione di video, è probabile che tu stia usando un altro lettore video. Prova a trovare il tuo lettore video predefinito nelle impostazioni del dispositivo, poi fai «Cancella predefinito» su di esso. La prossima volta che invocherai qualche intento video vedrai un prompt di selezione di app, dove potrai selezionare quale app vuoi usare.</string>
     <string name="volume">Volume</string>
     <string name="editor">Editor</string>
-    <string name="full_storage_permission_required">Galleria Fossify ha bisogno dell\'accesso completo per visualizzare tutte le foto e i video. Vai su Impostazioni &gt; Autorizzazioni &gt; Foto e video &gt; Consenti tutti.</string>
+    <string name="full_storage_permission_required">Galleria dsremo ha bisogno dell\'accesso completo per visualizzare tutte le foto e i video. Vai su Impostazioni &gt; Autorizzazioni &gt; Foto e video &gt; Consenti tutti.</string>
     <string name="playback_speed">Velocità di riproduzione</string>
     <string name="failed_to_load_media">Impossibile caricare i media.</string>
     <string name="file_is_malformed_or_corrupted">Il file è malformato o corrotto.</string>
