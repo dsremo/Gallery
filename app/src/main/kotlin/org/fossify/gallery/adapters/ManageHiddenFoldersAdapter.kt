@@ -16,6 +16,7 @@ import org.fossify.commons.interfaces.RefreshRecyclerViewListener
 import org.fossify.commons.views.MyRecyclerView
 import org.fossify.gallery.R
 import org.fossify.gallery.databinding.ItemManageFolderBinding
+import org.fossify.gallery.extensions.config
 import org.fossify.gallery.extensions.removeNoMedia
 
 class ManageHiddenFoldersAdapter(
@@ -138,6 +139,7 @@ class ManageHiddenFoldersAdapter(
         val position = getSelectedItemPositions()
         getSelectedItems().forEach {
             removeFolders.add(it)
+            activity.config.removeDsremoUserHiddenFolder(it)
             activity.removeNoMedia(it)
         }
 
