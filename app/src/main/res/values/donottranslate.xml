@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Gallery</string>
+    <string name="app_name">Dsremo Gallery</string>
     <string name="gif">GIF</string>
     <string name="raw">RAW</string>
     <string name="svg">SVG</string>
-    <string name="package_name">org.fossify.gallery</string>
+    <string name="package_name">com.dsremo.gallery</string>
     <string name="playback_speed_display_text">2x >></string>
 </resources>

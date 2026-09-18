@@ -1,4 +1,4 @@
-# Gallery
+# Dsremo Gallery
 
 A privacy-focused photo and video gallery for Android — forked from [Fossify Gallery](https://github.com/FossifyOrg/Gallery) with reworked UX and new features.
 

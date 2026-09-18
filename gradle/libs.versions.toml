@@ -17,7 +17,7 @@ exif = "1.0.1"
 #Room
 room = "2.8.4"
 #Fossify
-commons = "6.1.6-dsremo"
+commons = "v6.1.6-dsremo"
 #Gradle4
 gradlePlugins-agp = "9.2.0"
 #Other
@@ -59,7 +59,7 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 #Compose
 compose-detekt = { module = "io.nlopez.compose.rules:detekt", version.ref = "detektCompose" }
 #Fossify
-fossify-commons = { module = "org.fossify:commons", version.ref = "commons" }
+fossify-commons = { module = "com.github.dsremo:commons", version.ref = "commons" }
 #Other
 android-gif-drawable = { module = "pl.droidsonroids.gif:android-gif-drawable", version.ref = "androidGifDrawable" }
 android-image-cropper = { module = "com.vanniktech:android-image-cropper", version.ref = "androidImageCropper" }

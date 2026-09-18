@@ -1,10 +1,4 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp" android:height="108dp"
-    android:viewportWidth="512" android:viewportHeight="512">
-    <path android:fillColor="#ffffff" android:fillAlpha="0.55"
-          android:pathData="M180,410 L318,206 L456,410 Z"/>
-    <path android:fillColor="#ffffff"
-          android:pathData="M356,182 m-40,0 a40,40 0 1,0 80,0 a40,40 0 1,0 -80,0"/>
-    <path android:fillColor="#ffffff"
-          android:pathData="M56,410 L214,160 L370,410 Z"/>
-</vector>
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/dsremo_gallery_photo"
+    android:gravity="fill" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_launcher_name">Gallery</string>
+    <string name="app_launcher_name">Dsremo Gallery</string>
 
     <string name="my_website">https://github.com/dsremo/Gallery</string>
     <string name="donate_url">https://github.com/dsremo/Gallery</string>
