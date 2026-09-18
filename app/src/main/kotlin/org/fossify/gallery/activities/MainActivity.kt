@@ -289,34 +289,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
                 mWasMediaManagementPromptShown = true
                 handleMediaManagementPrompt { }
             }
-            promptAllFilesAccessIfMissing()
         }
-    }
-
-    private fun promptAllFilesAccessIfMissing() {
-        if (!isRPlus()) return
-        if (android.os.Environment.isExternalStorageManager()) return
-        if (config.dsremoAllFilesPromptShown) return
-        config.dsremoAllFilesPromptShown = true
-        val allFilesRationale = getString(R.string.dsremo_all_files_access_rationale)
-        val settingsAction = getString(org.fossify.commons.R.string.settings)
-        val notNowAction = getString(org.fossify.commons.R.string.later)
-        val dialogBuilder = androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle(R.string.dsremo_all_files_access_title)
-            .setMessage(allFilesRationale)
-            .setPositiveButton(settingsAction) { _, _ ->
-                val allFilesSettingsIntent = Intent(
-                    android.provider.Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,
-                    Uri.parse("package:$packageName")
-                )
-                try {
-                    startActivity(allFilesSettingsIntent)
-                } catch (_: android.content.ActivityNotFoundException) {
-                    startActivity(Intent(android.provider.Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION))
-                }
-            }
-            .setNegativeButton(notNowAction, null)
-        dialogBuilder.show()
     }
 
     override fun onStart() {
