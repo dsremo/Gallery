@@ -48,8 +48,8 @@ object StorageReclaimAdvisor {
                 return@forEach
             }
             if (!node.isFile) return@forEach
-            val name = node.name.lowercase()
-            val parentName = node.parentFile?.name?.lowercase() ?: ""
+            val name = node.name.lowercase(java.util.Locale.ROOT)
+            val parentName = node.parentFile?.name?.lowercase(java.util.Locale.ROOT) ?: ""
 
             if (parentName.contains("whatsapp") && parentName.contains("sent")) {
                 accumulator.add(

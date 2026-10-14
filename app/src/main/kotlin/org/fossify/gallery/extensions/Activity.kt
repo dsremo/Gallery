@@ -101,7 +101,11 @@ fun Activity.openEditor(path: String, forceChooser: Boolean = false) {
     val newPath = path.removePrefix("file://")
     if (!forceChooser && !newPath.startsWith("content://")) {
         try {
-            val editUri = getFinalUriFromPath(newPath, BuildConfig.APPLICATION_ID) ?: return
+            val editUri = getFinalUriFromPath(newPath, BuildConfig.APPLICATION_ID)
+            if (editUri == null) {
+                openEditorIntent(newPath, forceChooser, BuildConfig.APPLICATION_ID)
+                return
+            }
             val editIntent = Intent(this, org.fossify.gallery.activities.EditActivity::class.java).apply {
                 action = Intent.ACTION_EDIT
                 setDataAndType(editUri, "image/*")
@@ -547,19 +551,23 @@ fun AppCompatActivity.fixDateTaken(
 
         ensureBackgroundThread {
             val dateTakens = ArrayList<DateTaken>()
+            val dateFormatters = HashMap<String, SimpleDateFormat>()
 
             for (path in paths) {
                 try {
-                    val dateTime: String = ExifInterface(path).getAttribute(ExifInterface.TAG_DATETIME_ORIGINAL)
-                        ?: ExifInterface(path).getAttribute(ExifInterface.TAG_DATETIME) ?: continue
+                    val exifInterface = ExifInterface(path)
+                    val dateTime: String = exifInterface.getAttribute(ExifInterface.TAG_DATETIME_ORIGINAL)
+                        ?: exifInterface.getAttribute(ExifInterface.TAG_DATETIME) ?: continue
 
                     // some formats contain a "T" in the middle, some don't
                     // sample dates: 2015-07-26T14:55:23, 2018:09:05 15:09:05
                     val t = if (dateTime.substring(10, 11) == "T") "\'T\'" else " "
                     val separator = dateTime.substring(4, 5)
                     val format = "yyyy${separator}MM${separator}dd${t}kk:mm:ss"
-                    val formatter = SimpleDateFormat(format, Locale.getDefault())
-                    val timestamp = formatter.parse(dateTime).time
+                    val formatter = dateFormatters.getOrPut(format) {
+                        SimpleDateFormat(format, Locale.getDefault())
+                    }
+                    val timestamp = formatter.parse(dateTime)?.time ?: continue
 
                     val uri = getFileUri(path)
                     ContentProviderOperation.newUpdate(uri).apply {

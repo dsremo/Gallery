@@ -152,6 +152,7 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.InputStream
 import java.io.OutputStream
+import java.util.concurrent.Executors
 
 class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     override var isSearchBarEnabled = true
@@ -176,6 +177,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
     private var mWasDefaultFolderChecked = false
     private var mWasMediaManagementPromptShown = false
     private var mLatestMediaId = 0L
+    private val mDbWriteExecutor = Executors.newSingleThreadExecutor()
     private var mLatestMediaDateId = 0L
 
     // used at "Group direct subfolders" for navigation
@@ -385,6 +387,9 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
 
     override fun onDestroy() {
         super.onDestroy()
+        if (isFinishing) {
+            mDbWriteExecutor.shutdown()
+        }
         if (!isChangingConfigurations) {
             config.temporarilyShowHidden = false
             config.temporarilyShowExcluded = false
@@ -1350,12 +1355,12 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
                 // update directories and media files in the local db, delete invalid items. Intentionally creating a new thread
                 updateDBDirectory(directory)
                 if (!directory.isRecycleBin() && !directory.areFavorites()) {
-                    Thread {
+                    mDbWriteExecutor.execute {
                         try {
                             mediaDB.insertAll(curMedia)
                         } catch (ignored: Exception) {
                         }
-                    }.start()
+                    }
                 }
 
                 if (!directory.isRecycleBin()) {
@@ -1462,7 +1467,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
             setupAdapter(dirs)
 
             // make sure to create a new thread for these operations, dont just use the common bg thread
-            Thread {
+            mDbWriteExecutor.execute {
                 try {
                     directoryDB.insert(newDir)
                     if (folder != RECYCLE_BIN && folder != FAVORITES) {
@@ -1470,7 +1475,7 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
                     }
                 } catch (ignored: Exception) {
                 }
-            }.start()
+            }
         }
 
         mLoadedInitialPhotos = true

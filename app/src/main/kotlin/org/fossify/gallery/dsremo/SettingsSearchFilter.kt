@@ -27,7 +27,7 @@ import android.widget.TextView
 object SettingsSearchFilter {
 
     fun apply(container: LinearLayout, query: String) {
-        val needle = query.trim().lowercase()
+        val needle = query.trim().lowercase(java.util.Locale.getDefault())
         val children = mutableListOf<View>()
         for (i in 0 until container.childCount) children.add(container.getChildAt(i))
 
@@ -68,7 +68,7 @@ object SettingsSearchFilter {
 
     private fun matches(row: View, needle: String): Boolean {
         if (row is TextView) {
-            return row.text?.toString()?.lowercase()?.contains(needle) == true
+            return row.text?.toString()?.lowercase(java.util.Locale.getDefault())?.contains(needle) == true
         }
         if (row is ViewGroup) {
             for (i in 0 until row.childCount) {

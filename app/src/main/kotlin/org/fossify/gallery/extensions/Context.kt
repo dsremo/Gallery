@@ -1269,7 +1269,7 @@ fun Context.createDirectoryFromMedia(
         val sortedMedia = grouped.filter { it is Medium }.toMutableList() as ArrayList<Medium>
         val existingMedia = sortedMedia.filter { getDoesFilePathExist(it.path, OTGPath) }
         val cameraTakenCandidate = existingMedia.firstOrNull { medium ->
-            val loweredPath = medium.path.lowercase()
+            val loweredPath = medium.path.lowercase(java.util.Locale.ROOT)
             loweredPath.contains("/dcim/") || loweredPath.contains("/camera/") || loweredPath.contains("/dcim/camera")
         }
         thumbnail = cameraTakenCandidate?.path ?: existingMedia.firstOrNull()?.path ?: ""

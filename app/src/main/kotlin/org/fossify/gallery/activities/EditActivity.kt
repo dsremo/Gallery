@@ -26,6 +26,7 @@ import com.zomato.photofilters.FilterPack
 import com.zomato.photofilters.imageprocessors.Filter
 import org.fossify.commons.dialogs.ColorPickerDialog
 import org.fossify.commons.extensions.applyColorFilter
+import org.fossify.commons.extensions.getFilePublicUri
 import org.fossify.commons.extensions.setFillWithStroke
 import org.fossify.commons.extensions.beGone
 import org.fossify.commons.extensions.beGoneIf
@@ -889,8 +890,11 @@ class EditActivity : BaseCropActivity() {
     }
 
     private fun finishCropResultForContent(uri: Uri) {
+        val outgoingUri = if (uri.scheme == "file") {
+            uri.path?.let { filePath -> getFilePublicUri(File(filePath), BuildConfig.APPLICATION_ID) } ?: uri
+        } else uri
         val result = Intent().apply {
-            data = uri
+            data = outgoingUri
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
         setResult(RESULT_OK, result)

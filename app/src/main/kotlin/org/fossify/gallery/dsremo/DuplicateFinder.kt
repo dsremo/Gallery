@@ -96,7 +96,7 @@ object DuplicateFinder {
                 digest.update(buffer, 0, read)
             }
         }
-        return digest.digest().joinToString("") { "%02x".format(it) }
+        return digest.digest().joinToString("") { String.format(java.util.Locale.ROOT, "%02x", it) }
     }
 
     private fun showResults(activity: Activity, groups: Map<String, List<FileEntry>>) {
