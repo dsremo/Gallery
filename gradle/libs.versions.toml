@@ -30,7 +30,7 @@ jxlDecoder = "2.6.0"
 gestureviews = "e706487a14"
 androidsvgAar = "1.4"
 androidphotofilters = "193f2ae509"
-sanselan = "0.97-incubator"
+commonsImaging = "1.0-alpha3"
 media3Exoplayer = "1.10.0"
 okhttp = "5.3.2"
 okio = "3.17.0"
@@ -69,7 +69,7 @@ gestureviews = { module = "org.fossify:gestureviews", version.ref = "gestureview
 androidphotofilters = { module = "com.github.naveensingh:androidphotofilters", version.ref = "androidphotofilters" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
-sanselan = { module = "org.apache.sanselan:sanselan", version.ref = "sanselan" }
+commons-imaging = { module = "org.apache.commons:commons-imaging", version.ref = "commonsImaging" }
 apng = { module = "com.github.penfeizhou.android.animation:apng", version.ref = "animationAndroid" }
 awebp = { module = "com.github.penfeizhou.android.animation:awebp", version.ref = "animationAndroid" }
 avif = { module = "com.github.penfeizhou.android.animation:avif", version.ref = "animationAndroid" }

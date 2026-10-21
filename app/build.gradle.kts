@@ -176,7 +176,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.documentfile)
     implementation(libs.androidx.media3.exoplayer)
-    implementation(libs.sanselan)
+    // Sanselan was abandoned with two unfixed parsing CVEs; it became Commons Imaging.
+    implementation(libs.commons.imaging)
     implementation(libs.androidphotofilters)
     implementation(libs.androidsvg.aar)
     implementation(libs.gestureviews)

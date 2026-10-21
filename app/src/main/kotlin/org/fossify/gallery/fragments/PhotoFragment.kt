@@ -52,8 +52,9 @@ import com.github.penfeizhou.animation.webp.WebPDrawable
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import it.sephiroth.android.library.exif2.ExifInterface
-import org.apache.sanselan.common.byteSources.ByteSourceInputStream
-import org.apache.sanselan.formats.jpeg.JpegImageParser
+import org.apache.commons.imaging.common.XmpImagingParameters
+import org.apache.commons.imaging.common.bytesource.ByteSourceInputStream
+import org.apache.commons.imaging.formats.jpeg.JpegImageParser
 import org.fossify.commons.extensions.beGone
 import org.fossify.commons.extensions.beVisible
 import org.fossify.commons.extensions.beVisibleIf
@@ -832,7 +833,7 @@ class PhotoFragment : ViewPagerFragment() {
             } else {
                 File(mMedium.path).inputStream()
             }.use {
-                val imageParser = JpegImageParser().getXmpXml(ByteSourceInputStream(it, mMedium.name), HashMap<String, Any>())
+                val imageParser = JpegImageParser().getXmpXml(ByteSourceInputStream(it, mMedium.name), XmpImagingParameters())
                 imageParser.contains("GPano:UsePanoramaViewer=\"True\"", true) ||
                     imageParser.contains("<GPano:UsePanoramaViewer>True</GPano:UsePanoramaViewer>", true) ||
                     imageParser.contains("GPano:FullPanoWidthPixels=") ||
