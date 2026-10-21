@@ -142,6 +142,26 @@ detekt {
     allRules = false
 }
 
+// org.fossify:commons drags in jackson-core 2.21.0 (four advisories), freemarker 2.3.34
+// and jsoup 1.22.1 (memory exhaustion, HIGH). None is declared here, so scanning declared
+// dependencies never saw them.
+configurations.configureEach {
+    // it.sephiroth.android.exif asks for org.apache.commons:commons-io, a dead coordinate
+    // whose only release is 1.3.2 (GHSA-gwrp-pvrq-jmwv). The library moved to
+    // commons-io:commons-io years ago, same org.apache.commons.io packages, so drop the dead
+    // one and let the maintained artifact supply the classes.
+    exclude(group = "org.apache.commons", module = "commons-io")
+    resolutionStrategy {
+        force("com.fasterxml.jackson.core:jackson-core:2.21.7")
+        force("org.freemarker:freemarker:2.3.35")
+        force("org.jsoup:jsoup:1.23.2")
+        // it.sephiroth.android.exif drags in commons-io 1.3.2 (GHSA-gwrp-pvrq-jmwv) and
+        // commons-lang3 3.3.2 (GHSA-j288-q9x7-2f5v).
+        force("commons-io:commons-io:2.14.0")
+        force("org.apache.commons:commons-lang3:3.18.0")
+    }
+}
+
 dependencies {
     implementation(files("libs/dsremo-sso-0.1.0.aar"))
     implementation("androidx.security:security-crypto:1.1.0-alpha06")
