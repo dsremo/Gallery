@@ -292,6 +292,8 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
                 handleMediaManagementPrompt { }
             }
         }
+
+        com.dsremo.sso.DsremoUpdateUi.checkAndPrompt(this, "gallery")
     }
 
     override fun onStart() {
@@ -301,6 +303,9 @@ class MainActivity : SimpleActivity(), DirectoryOperationsListener {
 
     override fun onResume() {
         super.onResume()
+        // Finishes an install that stalled while the user granted the install permission,
+        // which otherwise returns to the app with nothing shown.
+        runCatching { com.dsremo.sso.DsremoUpdater.resumePendingInstall(this) }
         updateMenuColors()
         config.isThirdPartyIntent = false
         mDateFormat = config.dateFormat
